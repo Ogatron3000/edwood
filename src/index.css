@@ -10,11 +10,117 @@ html {
 :root {
   --font-sans-serif: 'Robot', sans-serif;
   --font-serif: 'Georgia', serif;
+  --font-logo: 'Fjalla One', sans-serif;
   --font-sm: 0.875rem;
   --font-regular: 1rem;
+  --brand-color: #ebbd18;
+  --black: #1a1f34;
+  --not-quite-black: #21273e;
+  --gray: #8f8f8f;
+  --page-padding: 20px;
+  --grid-columns: 4;
+  --grid-gap: 5px;
+  --border-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --page-padding: 40px;
+    --grid-columns: 8;
+    --grid-gap: 10px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --grid-gap: 20px;
+    --grid-columns: 12;
+  }
 }
 
 body {
   margin: 0;
   font-family: var(--font-sans-serif);
+  font-size: var(--font-regular);
+  color: white;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+a {
+  color: var(--black) default;
+  text-decoration: none;
+}
+
+a:hover,
+a:visited {
+  color: var(--black) default;
+}
+
+a:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.container {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-gap: var(--grid-gap);
+  align-items: baseline;
+}
+
+.button {
+  display: block;
+  padding: 10px 12px;
+  text-transform: uppercase;
+  background: var(--brand-color);
+  font-size: var(--font-sm);
+  font-weight: bold;
+  border-radius: var(--border-radius);
+  width: fit-content;
+}
+
+button:focus {
+  border-radius: 100%;
+  outline: 2px dashed var(--brand-color);
+  outline-offset: -2px;
+}
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }

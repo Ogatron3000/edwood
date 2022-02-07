@@ -1,0 +1,74 @@
+header {
+    background: var(--black);
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 70%);
+}
+
+.nav {
+    grid-column: span var(--grid-columns);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.nav__burger {
+    position: relative;
+    padding: 6px;
+}
+
+.nav__burger svg {
+    color: white;
+}
+
+.nav__links {
+    display: none;
+    /*text-transform: uppercase;*/
+    font-size: var(--font-sm);
+    font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+    .nav__burger {
+        display: none;
+    }
+
+    .nav__links {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.nav__links > li > a {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    position: relative;
+    z-index: 1;
+}
+
+.nav__links > li > a:focus {
+    border: 1px solid var(--brand-color);
+    border-radius: var(--border-radius);
+}
+
+.nav__links > li > a::after {
+    content: '';
+    height: 100%;
+    width: 0;
+    right: 0;
+    background: var(--brand-color);
+    position: absolute;
+    border-radius: var(--border-radius);
+    z-index: -1;
+    transition: width .3s;
+}
+
+.nav__links > li > a:hover::after {
+    right: auto;
+    width: 100%;
+}
+
+.nav__links > li > a {
+    padding-inline: 12px;
+}

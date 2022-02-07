@@ -1,0 +1,10 @@
+.logo {
+    font-family: var(--font-logo);
+    background: var(--brand-color);
+    color: black;
+    height: 36px;
+    padding: 6px;
+    margin-right: 12px;
+    border-radius: var(--border-radius);
+    width: fit-content;
+}
