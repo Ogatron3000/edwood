@@ -21,24 +21,26 @@ export default function Navbar() {
     }
 
     return (
-        <header className="container grid">
-            <nav className="nav">
-                <Logo/>
-                <Search/>
-                <button onClick={toggleDrawer} className="nav__burger" aria-label="Open Navigation Drawer">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-                <ul className="nav__links">
-                    <li><a href="#">Films</a></li>
-                    <li><a href="#">Sign In</a></li>
-                </ul>
-            </nav>
+        <header>
+            <div className="container grid">
+                <nav className="nav">
+                    <Logo/>
+                    <Search/>
+                    <button onClick={toggleDrawer} className="nav__burger" aria-label="Open Navigation Drawer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                    <ul className="nav__links">
+                        <li><a href="#">Films</a></li>
+                        <li><a href="#">Sign In</a></li>
+                    </ul>
+                </nav>
 
-            {drawerOpen.display &&
-                <Drawer handleClick={toggleDrawer} drawerVisible={drawerOpen.onscreen} />}
+                {drawerOpen.display &&
+                    <Drawer handleClick={toggleDrawer} drawerVisible={drawerOpen.onscreen} />}
+            </div>
         </header>
     )
 }

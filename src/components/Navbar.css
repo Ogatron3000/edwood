@@ -16,6 +16,12 @@ header {
     padding: 6px;
 }
 
+.nav__burger:hover,
+.nav__burger:focus {
+    background: rgba(255, 255, 255, 25%);
+    border-radius: 50%;
+}
+
 .nav__burger svg {
     color: white;
 }
@@ -45,10 +51,6 @@ header {
     white-space: nowrap;
     position: relative;
     z-index: 1;
-}
-
-.nav__links > li > a:focus {
-    border: 1px solid var(--brand-color);
     border-radius: var(--border-radius);
 }
 
@@ -64,8 +66,10 @@ header {
     transition: width .3s;
 }
 
-.nav__links > li > a:hover::after {
+.nav__links > li > a:hover::after,
+.nav__links > li > a:focus::after {
     right: auto;
+    left: 0;
     width: 100%;
 }
 

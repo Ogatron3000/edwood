@@ -39,6 +39,7 @@
     cursor: pointer;
     padding: 6px;
     height: inherit;
+    border-radius: var(--border-radius);
 }
 
 .search__submit:focus {
@@ -50,12 +51,12 @@
     position: relative;
     padding: 6px;
     cursor: pointer;
+    border-radius: var(--border-radius);
 }
 
 .search__clear:focus {
     outline: 2px dashed var(--gray);
     outline-offset: -3px;
-    border-radius: 100%;
 }
 
 .search__clear::after {

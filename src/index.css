@@ -109,9 +109,7 @@ svg {
 }
 
 button:focus {
-  border-radius: 100%;
-  outline: 2px dashed var(--brand-color);
-  outline-offset: -2px;
+  outline: none;
 }
 
 .visually-hidden {

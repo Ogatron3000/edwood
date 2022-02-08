@@ -32,26 +32,34 @@
     padding: 6px;
 }
 
+.drawer__close:hover,
+.drawer__close:focus {
+    background: rgba(255, 255, 255, 25%);
+    border-radius: 50%;
+}
+
 .drawer__links {
     font-weight: bold;
 }
 
 .drawer__links > li > a {
     position: relative;
-    display: block;
     padding: 12px var(--page-padding);
+    display: flex;
+    align-items: center;
 }
 
 .drawer__links > li > a:hover,
 .drawer__links > li > a:focus {
     background: var(--brand-color);
+    color: var(--black);
 }
 
-.drawer__links > li > a {
-    display: flex;
-    align-items: center;
-}
-
-.drawer__links svg {
+.drawer__links > li > a > svg {
     margin-right: 12px;
+}
+
+.drawer__links > li > a:hover > svg,
+.drawer__links > li > a:focus > svg {
+    color: var(--black);
 }
