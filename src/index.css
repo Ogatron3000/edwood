@@ -47,7 +47,7 @@ body {
   color: white;
 }
 
-h1, h2 {
+h1, h2, h3 {
   margin: 0;
 }
 
@@ -115,7 +115,6 @@ svg {
 
 .button-primary {
   background: var(--brand-color);
-  font-weight: bold;
   color: var(--black);
 }
 
