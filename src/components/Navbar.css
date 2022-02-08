@@ -1,6 +1,7 @@
 header {
     background: var(--black);
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 70%);
+    position: relative;
+    z-index: 2;
 }
 
 .nav {
@@ -57,20 +58,21 @@ header {
 .nav__links > li > a::after {
     content: '';
     height: 100%;
-    width: 0;
+    width: 100%;
     right: 0;
     background: var(--brand-color);
     position: absolute;
     border-radius: var(--border-radius);
     z-index: -1;
-    transition: width .3s;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.25s cubic-bezier(0.79, 0.01, 0.22, 0.99) 0s,transform-origin 0s step-end 0.25s;;
 }
 
 .nav__links > li > a:hover::after,
 .nav__links > li > a:focus::after {
-    right: auto;
-    left: 0;
-    width: 100%;
+    transform: scaleX(1);
+    transform-origin: right center;
 }
 
 .nav__links > li > a {

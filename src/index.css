@@ -14,7 +14,9 @@ html {
   --font-sm: 0.875rem;
   --font-regular: 1rem;
   --brand-color: #ebbd18;
-  --black: #1a1f34;
+  --brand-color-dark: rgb(210, 166, 10);
+  --black: #14181c;
+  --another-black: #1a1f34;
   --not-quite-black: #21273e;
   --gray: #8f8f8f;
   --page-padding: 20px;
@@ -70,6 +72,11 @@ button {
   padding: 0;
 }
 
+
+button:focus {
+  outline: none;
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -98,18 +105,41 @@ svg {
 }
 
 .button {
-  display: block;
-  padding: 10px 12px;
-  text-transform: uppercase;
-  background: var(--brand-color);
+  display: inline-block;
   font-size: var(--font-sm);
-  font-weight: bold;
   border-radius: var(--border-radius);
-  width: fit-content;
+  height: 36px;
+  padding-inline: 6px;
+  transition: 0.3s;
 }
 
-button:focus {
-  outline: none;
+.button-primary {
+  background: var(--brand-color);
+  font-weight: bold;
+  color: var(--black);
+}
+
+.button-primary:hover,
+.button-primary:focus {
+  background: var(--brand-color-dark);
+}
+
+.button-secondary {
+  background: transparent;
+  border: 2px solid var(--brand-color);
+  color: white;
+}
+
+.button-secondary:hover,
+.button-secondary:focus {
+  background: var(--brand-color);
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    padding-inline: 12px;
+    font-size: var(--font-regular);
+  }
 }
 
 .visually-hidden {
