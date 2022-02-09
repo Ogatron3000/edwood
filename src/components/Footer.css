@@ -1,0 +1,16 @@
+footer {
+    background: var(--black);
+    padding-top: var(--page-padding);
+    padding-bottom: var(--page-padding);
+    font-size: var(--font-sm);
+    text-align: center;
+}
+
+footer span {
+    color: var(--brand-color);
+}
+
+footer a {
+    text-decoration: underline;
+    text-underline-position: under;
+}

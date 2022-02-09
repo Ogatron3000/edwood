@@ -1,9 +1,10 @@
 .films {
-    /*background: var(--black);*/
+    padding-top: var(--page-padding);
+    padding-bottom: calc(var(--page-padding) * 2);
 }
 
 .films__title {
-    margin: 20px 0;
+    margin-bottom: var(--page-padding);
     display: flex;
     align-items: center;
     justify-content: space-between;
