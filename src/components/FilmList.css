@@ -18,8 +18,11 @@
     justify-content: end;
 }
 
-.films__controls > button:not(:first-child) {
+.films__controls > button {
     color: black;
+}
+
+.films__controls > button:not(:first-child) {
     margin-left: 12px;
 }
 
@@ -35,7 +38,6 @@
     grid-column: span 1;
     border-radius: var(--border-radius);
     overflow: hidden;
-    /*border: 2px solid var(--black);*/
 }
 
 .film > a > img {
