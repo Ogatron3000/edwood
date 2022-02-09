@@ -8,6 +8,7 @@ export default function Search() {
     function clearOnEnter(e) {
         if (e.key === 'Enter' || e.key === ' ') {
             setSearchValue('');
+            setClearButtonVisible(false);
         }
     }
 
