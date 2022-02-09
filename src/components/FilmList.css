@@ -91,6 +91,10 @@
 }
 
 @media screen and (min-width: 1024px) {
+    .films__title > h2 {
+        font-size: 2rem;
+    }
+
     .films__list {
         grid-template-columns: repeat(5, 1fr);
     }

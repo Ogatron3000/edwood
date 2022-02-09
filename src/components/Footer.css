@@ -7,7 +7,13 @@ footer {
 }
 
 footer span {
-    color: var(--brand-color);
+    color: var(--black);
+    font-family: var(--font-logo);
+    background: var(--brand-color);
+    font-weight: bold;
+    padding: 3px;
+    border-radius: var(--border-radius);
+    margin-right: 2px;
 }
 
 footer a {
