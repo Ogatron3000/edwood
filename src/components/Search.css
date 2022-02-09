@@ -8,6 +8,10 @@
     margin-right: 12px;
 }
 
+.search__form {
+    width: 100%;
+}
+
 .search__input {
     width: 100%;
     max-height: 36px;
@@ -70,10 +74,47 @@
 }
 
 .search svg {
-
     color: #8f8f8f;
 }
 
 .search__show {
     padding: 6px;
+}
+
+.search__results {
+    background: var(--black);
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.search__result {
+    display: flex;
+    height: 100px;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+.search__result:hover {
+    background: var(--not-quite-black);
+}
+
+.search__result > img {
+    display: block;
+    margin-right: 12px;
+}
+
+.search__result h3 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.search__result > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
 }
