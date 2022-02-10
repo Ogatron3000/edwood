@@ -3,6 +3,7 @@ import Search from "./Search";
 import Drawer from "./Drawer";
 import {useState} from "react";
 import Logo from "./Logo";
+import {Link} from "react-router-dom";
 
 export default function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState({
@@ -33,8 +34,8 @@ export default function Navbar() {
                         </svg>
                     </button>
                     <ul className="nav__links">
-                        <li><a href="#">Films</a></li>
-                        <li><a href="#">Sign In</a></li>
+                        <li><Link to="/">Films</Link></li>
+                        <li><Link to="/sign-in">Sign In</Link></li>
                     </ul>
                 </nav>
 

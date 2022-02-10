@@ -1,12 +1,13 @@
 import './FilmCard.css';
 import FilmControls from "./FilmControls";
+import {Link} from "react-router-dom";
 
 export default function FilmCard({ film }) {
     return (
         <div className="film">
-            <a href="#">
+            <Link to={`films/${film.id}`}>
                 <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
-            </a>
+            </Link>
             <div className="film__info">
                 <h3>{film.title}</h3>
                 <div className="film__bottom">

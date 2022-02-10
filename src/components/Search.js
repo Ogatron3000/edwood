@@ -1,6 +1,7 @@
 import './Search.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {NavLink} from "react-router-dom";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState('');
@@ -12,20 +13,24 @@ export default function Search() {
         if (searchValue) {
             axios.get(`${process.env.REACT_APP_URL_BASE}search/movie${process.env.REACT_APP_API_KEY}&query=${searchValue}`)
                 .then(({ data }) => {
-                    let films = data.results.slice(0, 3);
+                    let films = data.results.slice(0, 5);
                     let creditsPromises = films.map(film => axios.get(`${process.env.REACT_APP_URL_BASE}movie/${film.id}/credits${process.env.REACT_APP_API_KEY}`))
                     Promise.all(creditsPromises).then(response => {
-                        response.forEach((res, i) => films[i].director = res.data.crew.find(crew => crew.job === 'Director').name);
+                        response.forEach((res, i) => films[i].director = res.data.crew.find(crew => crew.job === 'Director')?.name);
                         setSearchResults(films);
                     });
                 })
         }
     }, [searchValue]);
 
-    function clearOnEnter(e) {
+    function clearInput() {
+        setSearchValue('');
+        setClearButtonVisible(false);
+    }
+
+    function handleKeyDown(e) {
         if (e.key === 'Enter' || e.key === ' ') {
-            setSearchValue('');
-            setClearButtonVisible(false);
+            clearInput();
         }
     }
 
@@ -56,7 +61,7 @@ export default function Search() {
                     {clearButtonVisible &&
                         <div
                             onClick={() => setSearchValue('')}
-                            onKeyDown={clearOnEnter}
+                            onKeyDown={handleKeyDown}
                             className="search__clear hidden"
                             tabIndex="0"
                             aria-label="Clear search"
@@ -85,14 +90,14 @@ export default function Search() {
                 <div className="search__results">
                     {searchResults.map(film => {
                         return (
-                            <a className="search__result" href="#" key={film.id}>
+                            <NavLink to={`films/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
                                 <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
                                 <div>
                                     <h3>{film.title}</h3>
                                     <div>{film.release_date.split('-')[0]}</div>
                                     <div>{film.director}</div>
                                 </div>
-                            </a>
+                            </NavLink>
                         )
                     })}
                 </div>
