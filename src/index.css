@@ -109,7 +109,6 @@ svg {
   border-radius: var(--border-radius);
   height: 36px;
   padding-inline: 6px;
-  transition: 0.3s;
 }
 
 .button-primary {
@@ -125,7 +124,6 @@ svg {
 .button-secondary {
   background: transparent;
   border: 2px solid var(--brand-color);
-  color: white;
 }
 
 .button-secondary:hover,

@@ -18,11 +18,12 @@
     justify-content: end;
 }
 
-.films__controls > button {
-    color: black;
+.films__controls > a {
+    display: flex;
+    align-items: center;
 }
 
-.films__controls > button:not(:first-child) {
+.films__controls > a:not(:first-child) {
     margin-left: 12px;
 }
 

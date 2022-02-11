@@ -3,20 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Route, Routes, Outlet} from "react-router-dom";
-import Home from "./components/Home";
+import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
 import SignIn from "./components/SignIn";
 import FilmDetails from "./components/FilmDetails";
+import ValidateHome from "./components/ValidateHome";
 
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<App/>}>
-                    <Route path="/" element={<Home/>}/>
-                    <Route path="/:filter" element={<Home/>}/>
+                    <Route path="/" element={<ValidateHome/>}/>
+                    <Route path="/:filter" element={<ValidateHome/>}/>
                     <Route path='/sign-in' element={<SignIn/>}/>
-                    <Route path='/films/:filmId' element={<FilmDetails/>}/>
+                    <Route path='/film/:filmId' element={<FilmDetails/>}/>
+                    <Route path="*" element={<Navigate to="/"/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

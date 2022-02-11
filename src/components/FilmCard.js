@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 export default function FilmCard({ film }) {
     return (
         <div className="film">
-            <Link to={`films/${film.id}`}>
+            <Link to={`film/${film.id}`}>
                 <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
             </Link>
             <div className="film__info">
