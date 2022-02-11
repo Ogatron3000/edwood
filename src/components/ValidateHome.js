@@ -5,9 +5,7 @@ export default function ValidateHome() {
     const {filter, page} = useParams();
     const validParams = [undefined, 'popular', 'now_playing', 'upcoming'];
 
-    // && page.match(/\d+/)
-
-    if (validParams.includes(filter)) {
+    if (validParams.includes(filter) && (page === undefined || page.match(/\d+/))) {
         return (
             <Home />
         )

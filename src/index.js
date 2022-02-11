@@ -14,7 +14,7 @@ ReactDOM.render(
             <Routes>
                 <Route path='/' element={<App/>}>
                     <Route path="/" element={<ValidateHome/>}/>
-                    <Route path="/:filter" element={<ValidateHome/>}/>
+                    <Route path="/:filter/:page" element={<ValidateHome/>}/>
                     <Route path='/sign-in' element={<SignIn/>}/>
                     <Route path='/film/:filmId' element={<FilmDetails/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>

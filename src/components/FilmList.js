@@ -1,31 +1,32 @@
 import './FilmList.css';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import FilmCard from "./FilmCard";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
+import ReactPaginate from "react-paginate";
 
 export default function FilmList({ nowPlayingFilms }) {
-    const [films, setFilms] = useState();
+    const [filmsData, setFilmsData] = useState();
 
-    let {filter: filterParam} = useParams();
+    let {filter: filterParam, page} = useParams();
     filterParam = filterParam ? filterParam : 'popular';
+    page = page ? page : 1;
 
     useEffect(() => {
         if (filterParam === 'now_playing' && nowPlayingFilms) {
-            setFilms(nowPlayingFilms)
+            setFilmsData(nowPlayingFilms)
         } else {
-            axios.get(process.env.REACT_APP_URL_BASE + `movie/${filterParam}` + process.env.REACT_APP_API_KEY)
-                .then(({ data }) => setFilms(data.results));
+            axios.get(process.env.REACT_APP_URL_BASE + `movie/${filterParam}` + process.env.REACT_APP_API_KEY + `&page=${page}`)
+                .then(({ data }) => setFilmsData(data));
         }
-    }, [filterParam]);
+    }, [filterParam, page]);
 
     const sortingFilters = ['popular', 'now_playing', 'upcoming'];
-
     const sorting = sortingFilters.map(filter => {
         const activeClass = filterParam === filter ? 'button-active' : '';
         const displayName = filter.split('_').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
         return (
-            <NavLink to={`/${filter}`}
+            <NavLink to={`/${filter}/1`}
                      key={filter}
                      id={filter}
                      className={`button button-secondary ${activeClass}`}>
@@ -34,11 +35,16 @@ export default function FilmList({ nowPlayingFilms }) {
         )
     });
 
-    const filmCards = films && films.map(film => {
+    const filmCards = filmsData && filmsData.results.map(film => {
         return (
             <FilmCard film={film} key={film.id} />
         )
     })
+
+    const navigate = useNavigate();
+    function handlePageChange(data) {
+        navigate(`/${filterParam}/${data.selected + 1}`);
+    };
 
     return (
         <div className="films container">
@@ -51,6 +57,20 @@ export default function FilmList({ nowPlayingFilms }) {
             <div className="films__list">
                 {filmCards}
             </div>
+            {filmsData &&
+                <ReactPaginate
+                    className={"films__pagination"}
+                    breakLabel="..."
+                    nextLabel=">"
+                    onPageChange={handlePageChange}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={2}
+                    pageCount={Math.min(filmsData.total_pages, 500)}
+                    previousLabel="<"
+                    forcePage={page - 1}
+                    activeClassName={"active-page"}
+                />
+            }
         </div>
     )
 }
