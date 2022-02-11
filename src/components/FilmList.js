@@ -1,5 +1,5 @@
 import './FilmList.css';
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import FilmCard from "./FilmCard";
 import {NavLink, useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -13,7 +13,7 @@ export default function FilmList({ nowPlayingFilms }) {
     page = page ? page : 1;
 
     useEffect(() => {
-        if (filterParam === 'now_playing' && nowPlayingFilms) {
+        if (filterParam === 'now_playing' && page === 1 && nowPlayingFilms) {
             setFilmsData(nowPlayingFilms)
         } else {
             axios.get(process.env.REACT_APP_URL_BASE + `movie/${filterParam}` + process.env.REACT_APP_API_KEY + `&page=${page}`)
@@ -41,13 +41,17 @@ export default function FilmList({ nowPlayingFilms }) {
         )
     })
 
+    const myRef = useRef(null)
+
+    const executeScroll = () => myRef.current.scrollIntoView()
     const navigate = useNavigate();
     function handlePageChange(data) {
         navigate(`/${filterParam}/${data.selected + 1}`);
+        executeScroll()
     };
 
     return (
-        <div className="films container">
+        <div className="films container" ref={myRef}>
             <div className="films__title">
                 <h2>Films</h2>
                 <div className="films__controls">
@@ -67,6 +71,7 @@ export default function FilmList({ nowPlayingFilms }) {
                     pageRangeDisplayed={2}
                     pageCount={Math.min(filmsData.total_pages, 500)}
                     previousLabel="<"
+                    disableInitialCallback={true}
                     forcePage={page - 1}
                     activeClassName={"active-page"}
                 />
