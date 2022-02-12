@@ -16,7 +16,7 @@ export default function Home() {
 
     return (
         <>
-            {nowPlayingFilmsData && <Slider films={nowPlayingFilmsData.results} genres={genres} />}
+            {(genres && nowPlayingFilmsData) && <Slider films={nowPlayingFilmsData.results} genres={genres} />}
             <FilmList nowPlayingFilms={nowPlayingFilmsData} />
         </>
     )
