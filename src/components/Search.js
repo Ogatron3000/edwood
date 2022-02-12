@@ -91,11 +91,11 @@ export default function Search() {
                     {searchResults.map(film => {
                         return (
                             <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
-                                <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
+                                {film.poster_path && <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>}
                                 <div>
                                     <h3>{film.title}</h3>
-                                    <div>{film.release_date.split('-')[0]}</div>
-                                    <div>{film.director}</div>
+                                    {film.release_date && <div>film.release_date.split('-')[0]}</div>}
+                                    {film.director && <div>{film.director}</div>}
                                 </div>
                             </NavLink>
                         )
