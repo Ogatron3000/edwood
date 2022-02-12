@@ -1,6 +1,8 @@
+import {Fragment} from "react";
+
 export default function Cast({ crew }) {
 
-    const jobsToDisplay =
+    const jobsDisplayNames =
         {
             Director: 'Director',
             Producer: 'Producer',
@@ -10,24 +12,30 @@ export default function Cast({ crew }) {
             'Original Music Composer': 'Compositor',
         };
 
-    const crewByJobs = crew.reduce((agg, c) => {
-        let job = Object.keys(jobsToDisplay).find(key => key === c.job);
+    const crewByJob = crew.reduce((agg, c) => {
+        let job = Object.keys(jobsDisplayNames).find(key => key === c.job);
         if (job) {
-            let namedJob = jobsToDisplay[job];
+            let namedJob = jobsDisplayNames[job];
             agg[namedJob] = agg[namedJob] || [];
             agg[namedJob].push(c);
         }
         return agg;
     }, {})
 
-    const elements = Object.entries(crewByJobs).map(([ job, crew ]) => {
+    const orderedJobs = ['Director', 'Producer', 'Writer', 'Cinematographer', 'Compositor'];
+
+    const elements = orderedJobs.map(job => {
         return (
-            <div key={job}>
-                <h3>{crew.length > 1 ? `${job}s` : job}</h3>
-                {crew.map(c => c.name).join(", ")}
-            </div>
+            <Fragment key={job}>
+                {crewByJob[job] &&
+                    <div>
+                        <h3>{crewByJob[job].length > 1 ? `${job}s` : job}</h3>
+                        {crewByJob[job].map(crewMember => <span key={crewMember.id}>{crewMember.name}</span>)}
+                    </div>
+                }
+            </Fragment>
         )
-    })
+    });
 
     return (
         <>

@@ -24,7 +24,7 @@
     margin: 0 auto;
     width: 100%;
     height: 100%;
-    object-position: center;
+    object-position: top;
     object-fit: cover;
 }
 
@@ -145,10 +145,13 @@
 
 .film__tagline {
     margin-bottom: 12px;
+    font-size: var(--font-regular);
 }
 
 .film__overview {
     margin-bottom: 12px;
+    line-height: 1.5;
+    font-size: var(--font-sm);
 }
 
 .film__tabs {
@@ -163,13 +166,17 @@
     font-size: var(--font-sm);
 }
 
-.film__tab-content > span {
-    padding: 6px;
+.film__tab-content span {
+    padding: 3px 6px;
     margin-right: 3px;
     margin-bottom: 3px;
     background: var(--brand-color);
     display: inline-block;
     border-radius: var(--border-radius);
+}
+
+.film__tab-content h3 {
+    margin: 6px 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -193,8 +200,6 @@
     }
 
     .film__top {
-        /*padding-left: calc(200px + var(--page-padding));*/
-        /*padding-right: 0;*/
         padding-left: 0;
         flex-direction: column;
         align-items: start;

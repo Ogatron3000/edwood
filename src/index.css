@@ -103,7 +103,7 @@ svg {
   font-size: var(--font-sm);
   border-radius: var(--border-radius);
   height: 36px;
-  line-height: 36px;
+  /*line-height: 36px;*/
   padding-inline: 6px;
   cursor: pointer;
 }

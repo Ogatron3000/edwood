@@ -16,7 +16,7 @@ export default function Cast({ cast }) {
     return (
         <>
             {expanded ? castElements : castElements.slice(0, 30)}
-            {!expanded && <span onClick={handleClick}>Show All...</span>}
+            {!expanded && <span style={{cursor: "pointer"}} onClick={handleClick}>Show All...</span>}
         </>
     );
 }

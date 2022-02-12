@@ -6,6 +6,7 @@ import Cast from "./Cast";
 import Crew from "./Crew";
 import ProductionDetails from "./ProductionDetails";
 import TrailerButton from "./TrailerButton";
+import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
 
 export default function FilmDetails() {
     const [film, setFilm] = useState();
@@ -54,7 +55,7 @@ export default function FilmDetails() {
                                             {director?.name}
                                         </div>
                                         <div className="film__rating">
-                                            <span>{film.vote_average}</span>
+                                            <span>{convertToFiveStarRating(film.vote_average)}</span>
                                             <div className="film__stars" style={{'--rating': film.vote_average}}/>
                                         </div>
                                         <div className="film__trailer-and-duration">
@@ -91,10 +92,34 @@ export default function FilmDetails() {
                                     </p>
                                 }
                                 <div className="film__tabs">
-                                    <button className="button button-secondary" id='cast' onClick={activateTab}>Cast</button>
-                                    <button className="button button-secondary" id='crew' onClick={activateTab}>Crew</button>
-                                    <button className="button button-secondary" id='details' onClick={activateTab}>Details</button>
-                                    <button className="button button-secondary" id='genres' onClick={activateTab}>Genres</button>
+                                    <button
+                                        className={"button button-secondary " + (activeTab === 'cast' ? 'button-active' : '')}
+                                        id='cast'
+                                        onClick={activateTab}
+                                    >
+                                        Cast
+                                    </button>
+                                    <button
+                                        className={"button button-secondary " + (activeTab === 'crew' ? 'button-active' : '')}
+                                        id='crew'
+                                        onClick={activateTab}
+                                    >
+                                        Crew
+                                    </button>
+                                    <button
+                                        className={"button button-secondary " + (activeTab === 'details' ? 'button-active' : '')}
+                                        id='details'
+                                        onClick={activateTab}
+                                    >
+                                        Details
+                                    </button>
+                                    <button
+                                        className={"button button-secondary " + (activeTab === 'genres' ? 'button-active' : '')}
+                                        id='genres'
+                                        onClick={activateTab}
+                                    >
+                                        Genres
+                                    </button>
                                 </div>
                                 <div className="film__tab-content">
                                     {activeTab === 'cast' && <Cast cast={film.credits.cast} />}
