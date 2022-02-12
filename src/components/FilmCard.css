@@ -1,4 +1,4 @@
-.film {
+.film-card {
     background: #445566;
     background: var(--black);
     grid-column: span 1;
@@ -6,49 +6,49 @@
     overflow: hidden;
 }
 
-.film > a > img {
+.film-card > a > img {
     display: block;
     width: 100%;
     object-fit: cover;
 }
 
-.film__info {
+.film-card__info {
     display: none;
     font-size: var(--font-sm);
     padding: 6px;
 }
 
-.film__info > h3 {
+.film-card__info > h3 {
     margin: 6px 0;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.film__bottom {
+.film-card__bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.film__rating {
+.film-card__rating {
     display: flex;
     align-items: center;
     color: var(--brand-color);
 }
 
-.film__rating > svg {
+.film-card__rating > svg {
     color: var(--brand-color);
     margin-right: 3px;
 }
 
-.film__controls {
+.film-card__controls {
     display: flex;
     align-items: center;
 }
 
 @media screen and (min-width: 768px) {
-    .film__info {
+    .film-card__info {
         display: block;
     }
 }

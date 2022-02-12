@@ -60,7 +60,7 @@ export default function Search() {
                 <div className="search__buttons">
                     {clearButtonVisible &&
                         <div
-                            onClick={() => setSearchValue('')}
+                            onClick={clearInput}
                             onKeyDown={handleKeyDown}
                             className="search__clear hidden"
                             tabIndex="0"
@@ -90,7 +90,7 @@ export default function Search() {
                 <div className="search__results">
                     {searchResults.map(film => {
                         return (
-                            <NavLink to={`films/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
+                            <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
                                 <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
                                 <div>
                                     <h3>{film.title}</h3>

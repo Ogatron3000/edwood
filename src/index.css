@@ -47,18 +47,13 @@ body {
   color: white;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p {
   margin: 0;
 }
 
 a {
   color: var(--black) default;
   text-decoration: none;
-}
-
-a:hover,
-a:visited {
-  color: var(--black) default;
 }
 
 a:focus {
@@ -108,7 +103,9 @@ svg {
   font-size: var(--font-sm);
   border-radius: var(--border-radius);
   height: 36px;
+  line-height: 36px;
   padding-inline: 6px;
+  cursor: pointer;
 }
 
 .button-primary {
@@ -151,4 +148,22 @@ svg {
   padding: 0;
   position: absolute;
   width: 1px;
+}
+
+.hide-for-desktop {
+  display: block;
+}
+
+.show-for-desktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .hide-for-desktop {
+    display: none;
+  }
+
+  .show-for-desktop {
+    display: block;
+  }
 }
