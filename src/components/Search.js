@@ -94,8 +94,8 @@ export default function Search() {
                                 {film.poster_path && <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>}
                                 <div>
                                     <h3>{film.title}</h3>
-                                    {film.release_date && <div>film.release_date.split('-')[0]}</div>}
-                                    {film.director && <div>{film.director}</div>}
+                                    <div>{film.release_date?.split('-')[0]}</div>
+                                    <div>{film.director}</div>
                                 </div>
                             </NavLink>
                         )
