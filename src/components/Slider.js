@@ -2,9 +2,9 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import "swiper/css/pagination";
 import './Slider.css';
-import SliderButton from "./SliderButton";
 import {Pagination} from "swiper";
 import {NavLink} from "react-router-dom";
+import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
 
 export default function Slider({ films, genres }) {
     const pagination = {
@@ -19,7 +19,7 @@ export default function Slider({ films, genres }) {
                         <div className="slide__content">
                             <h2 className="slide__title">{film.title}</h2>
                             <div className="slide__info">
-                                <span className="slide__rating">{film.vote_average}</span>
+                                <span className="slide__rating">{convertToFiveStarRating(film.vote_average)}</span>
                                 <div className="slide__genre">
                                     {film.genre_ids.map(id => genres.find(genre => genre.id === id).name).join(' | ')}
                                 </div>
@@ -42,8 +42,6 @@ export default function Slider({ films, genres }) {
                 className="slider"
             >
                 {swiperSlides}
-                {/*<SliderButton direction="prev"/>*/}
-                {/*<SliderButton direction="next"/>*/}
             </Swiper>
     );
 };

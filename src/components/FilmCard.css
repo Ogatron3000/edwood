@@ -4,12 +4,20 @@
     grid-column: span 1;
     border-radius: var(--border-radius);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.film-card > a {
+    flex-grow: 1;
 }
 
 .film-card > a > img {
     display: block;
     width: 100%;
     object-fit: cover;
+    height: 100%;
 }
 
 .film-card__info {
@@ -23,6 +31,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-weight: normal;
 }
 
 .film-card__bottom {
@@ -38,13 +47,26 @@
 }
 
 .film-card__rating > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.film-card__rating > svg {
     color: var(--brand-color);
     margin-right: 3px;
 }
 
-.film-card__controls {
-    display: flex;
-    align-items: center;
+.film-card__watchlist {
+    cursor: pointer;
+}
+
+.film-card__watchlist > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.film-card__watchlist:hover > svg {
+    color: #8bb539;
 }
 
 @media screen and (min-width: 768px) {

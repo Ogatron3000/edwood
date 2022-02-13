@@ -34,8 +34,8 @@ export default function Navbar() {
                         </svg>
                     </button>
                     <ul className="nav__links">
-                        <li><Link to="/">Films</Link></li>
-                        <li><Link to="/sign-in">Sign In</Link></li>
+                        <li><Link to="/" onClick={(e) => e.target.blur()}>Films</Link></li>
+                        <li><Link to="/sign-in" onClick={(e) => e.target.blur()}>Sign In</Link></li>
                     </ul>
                 </nav>
 
