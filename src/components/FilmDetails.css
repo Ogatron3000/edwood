@@ -92,7 +92,7 @@
 .film__rating {
     display: flex;
     align-items: baseline;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .film__trailer-and-duration {
@@ -115,11 +115,17 @@
 }
 
 .film__rating > span {
-    margin-right: 12px;
+    margin-right: 6px;
     font-weight: bold;
     color: var(--brand-color);
     display: block;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Aligns text with stars nicely. */
+}
+
+@media screen and (min-width: 768px) {
+    .film__rating > span {
+        transform: translateY(-1px);
+    }
 }
 
 .film__stars {

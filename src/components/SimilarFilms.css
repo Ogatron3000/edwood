@@ -1,0 +1,16 @@
+.similar {
+    padding-bottom: var(--page-padding);
+}
+
+.similar__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    order: -1;
+    margin-bottom: 12px;
+    color: var(--black);
+}
+
+.similar__title {
+    font-size: 1.25rem;
+}

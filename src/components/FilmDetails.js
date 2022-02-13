@@ -2,26 +2,20 @@ import './FilmDetails.css'
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import Cast from "./Cast";
-import Crew from "./Crew";
-import ProductionDetails from "./ProductionDetails";
 import TrailerButton from "./TrailerButton";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
+import SimilarFilms from "./SimilarFilms";
+import FilmDetailsTabs from "./FilmDetailsTabs";
 
 export default function FilmDetails() {
     const [film, setFilm] = useState();
-    const [activeTab, setActiveTab] = useState('cast');
 
     const {filmId} = useParams();
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_URL_BASE + `movie/${filmId}` + process.env.REACT_APP_API_KEY + '&append_to_response=credits,videos')
+        axios.get(process.env.REACT_APP_URL_BASE + `movie/${filmId}` + process.env.REACT_APP_API_KEY + '&append_to_response=credits,videos,similar')
             .then(({ data }) => setFilm(data));
     }, [filmId]);
-
-    function activateTab(e) {
-        setActiveTab(e.target.id);
-    }
 
     let releaseYear, director;
     if (film) {
@@ -91,44 +85,10 @@ export default function FilmDetails() {
                                         {film.overview}
                                     </p>
                                 }
-                                <div className="film__tabs">
-                                    <button
-                                        className={"button button-secondary " + (activeTab === 'cast' ? 'button-active' : '')}
-                                        id='cast'
-                                        onClick={activateTab}
-                                    >
-                                        Cast
-                                    </button>
-                                    <button
-                                        className={"button button-secondary " + (activeTab === 'crew' ? 'button-active' : '')}
-                                        id='crew'
-                                        onClick={activateTab}
-                                    >
-                                        Crew
-                                    </button>
-                                    <button
-                                        className={"button button-secondary " + (activeTab === 'details' ? 'button-active' : '')}
-                                        id='details'
-                                        onClick={activateTab}
-                                    >
-                                        Details
-                                    </button>
-                                    <button
-                                        className={"button button-secondary " + (activeTab === 'genres' ? 'button-active' : '')}
-                                        id='genres'
-                                        onClick={activateTab}
-                                    >
-                                        Genres
-                                    </button>
-                                </div>
-                                <div className="film__tab-content">
-                                    {activeTab === 'cast' && <Cast cast={film.credits.cast} />}
-                                    {activeTab === 'crew' && <Crew crew={film.credits.crew} />}
-                                    {activeTab === 'details' && <ProductionDetails film={film} />}
-                                    {activeTab === 'genres' && film.genres.map(g => <span key={g.id}>{g.name}</span>)}
-                                </div>
+                                <FilmDetailsTabs film={film} />
                             </div>
                         </div>
+                        <SimilarFilms films={film.similar.results} />
                     </div>
                 </div>
             }
