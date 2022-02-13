@@ -4,6 +4,7 @@ footer {
     padding-bottom: var(--page-padding);
     font-size: var(--font-sm);
     text-align: center;
+    line-height: 1.5;
 }
 
 footer span {

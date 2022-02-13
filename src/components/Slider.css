@@ -57,14 +57,7 @@
 .slide__desc {
     font-size: var(--font-sm);
     display: none;
-}
-
-.slide__buttons > button:first-child {
-    margin-right: 12px;
-}
-
-.slide__buttons > button:last-child {
-    color: white;
+    margin-bottom: 12px;
 }
 
 @media screen and (min-width: 768px) {

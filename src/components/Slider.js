@@ -4,6 +4,7 @@ import "swiper/css/pagination";
 import './Slider.css';
 import SliderButton from "./SliderButton";
 import {Pagination} from "swiper";
+import {NavLink} from "react-router-dom";
 
 export default function Slider({ films, genres }) {
     const pagination = {
@@ -24,10 +25,7 @@ export default function Slider({ films, genres }) {
                                 </div>
                             </div>
                             <p className="slide__desc">{film.overview}</p>
-                            <div className="slide__buttons">
-                                <button className="button button-primary">Trailer</button>
-                                <button className="button button-secondary">Details</button>
-                            </div>
+                            <NavLink to={`/film/${film.id}`} className="button button-primary">Details</NavLink>
                         </div>
                     </div>
                 </SwiperSlide>

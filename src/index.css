@@ -51,9 +51,17 @@ h1, h2, h3, p {
   margin: 0;
 }
 
+p {
+  line-height: 1.5;
+}
+
 a {
   color: var(--black) default;
   text-decoration: none;
+}
+
+a[class~='button'] {
+  line-height: 36px;
 }
 
 a:focus {
@@ -103,9 +111,9 @@ svg {
   font-size: var(--font-sm);
   border-radius: var(--border-radius);
   height: 36px;
-  /*line-height: 36px;*/
   padding-inline: 6px;
   cursor: pointer;
+  width: fit-content;
 }
 
 .button-primary {

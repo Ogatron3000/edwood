@@ -22,7 +22,7 @@ export default function Cast({ crew }) {
         return agg;
     }, {})
 
-    const orderedJobs = ['Director', 'Producer', 'Writer', 'Cinematographer', 'Compositor'];
+    const orderedJobs = ['Director', 'Producer', 'Writer', 'Editor', 'Cinematographer', 'Compositor'];
 
     const elements = orderedJobs.map(job => {
         return (
