@@ -60,8 +60,12 @@ a {
   text-decoration: none;
 }
 
-a[class~='button'] {
+a[class~='button-primary'] {
   line-height: 36px;
+}
+
+a[class~='button-secondary'] {
+  line-height: 32px;
 }
 
 a:focus {
@@ -77,6 +81,20 @@ button {
 
 button:focus {
   outline: none;
+}
+
+input {
+  width: 100%;
+  max-height: 36px;
+  padding: 10px 72px 10px 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray);
+  color: var(--black);
+}
+
+input:focus {
+  border: 1px solid var(--brand-color);
+  outline: 2px solid var(--brand-color);
 }
 
 ul {

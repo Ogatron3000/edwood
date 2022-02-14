@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
-import SignIn from "./components/SignIn";
+import Auth from "./components/Auth";
 import FilmDetails from "./components/FilmDetails";
 import ValidateHome from "./components/ValidateHome";
 import SearchResults from "./components/SearchResults";
@@ -18,7 +18,8 @@ ReactDOM.render(
                     <Route path="/:filter/:page" element={<ValidateHome/>}/>
                     <Route path='/film/:filmId' element={<FilmDetails/>}/>
                     <Route path='/search' element={<SearchResults/>}/>
-                    <Route path='/sign-in' element={<SignIn/>}/>
+                    <Route path='/sign-in' element={<Auth/>}/>
+                    <Route path='/sign-up' element={<Auth/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Route>
             </Routes>
