@@ -1,7 +1,7 @@
 import Cast from "./Cast";
 import Crew from "./Crew";
 import ProductionDetails from "./ProductionDetails";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function FilmDetailsTabs({ film }) {
     const [activeTab, setActiveTab] = useState('cast');
@@ -9,6 +9,8 @@ export default function FilmDetailsTabs({ film }) {
     function activateTab(e) {
         setActiveTab(e.target.id);
     }
+
+    useEffect(() => setActiveTab('cast'), [film]);
 
     return (
         <>
