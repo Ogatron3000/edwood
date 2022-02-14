@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
 import SignIn from "./components/SignIn";
 import FilmDetails from "./components/FilmDetails";
 import ValidateHome from "./components/ValidateHome";
+import SearchResults from "./components/SearchResults";
 
 ReactDOM.render(
     <React.StrictMode>
@@ -15,8 +16,9 @@ ReactDOM.render(
                 <Route path='/' element={<App/>}>
                     <Route path="/" element={<ValidateHome/>}/>
                     <Route path="/:filter/:page" element={<ValidateHome/>}/>
-                    <Route path='/sign-in' element={<SignIn/>}/>
                     <Route path='/film/:filmId' element={<FilmDetails/>}/>
+                    <Route path='/search' element={<SearchResults/>}/>
+                    <Route path='/sign-in' element={<SignIn/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>
                 </Route>
             </Routes>

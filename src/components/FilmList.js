@@ -1,14 +1,8 @@
+import './FilmList.css';
 import ReactPaginate from "react-paginate";
 import FilmCard from "./FilmCard";
-import {useNavigate} from "react-router-dom";
 
-export default function FilmList({ filmsData, filmsRef, filterParam, page }) {
-    const executeScroll = () => filmsRef.current.scrollIntoView()
-    const navigate = useNavigate();
-    function handlePageChange(data) {
-        navigate(`/${filterParam}/${data.selected + 1}`);
-        executeScroll()
-    }
+export default function FilmList({ filmsData, handlePageChange, page }) {
 
     const filmCards = filmsData && filmsData.results.map(film => {
         return (
@@ -18,11 +12,11 @@ export default function FilmList({ filmsData, filmsRef, filterParam, page }) {
 
     return (
         <>
-            <div className="films__list">
+            <div className="film-list">
                 {filmCards}
             </div>
             <ReactPaginate
-                className={"films__pagination"}
+                className={"film-list-pagination"}
                 breakLabel="..."
                 nextLabel=">"
                 onPageChange={handlePageChange}

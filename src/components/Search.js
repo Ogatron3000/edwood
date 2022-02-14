@@ -1,7 +1,7 @@
 import './Search.css'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState('');
@@ -43,9 +43,16 @@ export default function Search() {
         }
     }
 
+    const navigate = useNavigate();
+    function handleSubmit(e) {
+        e.preventDefault();
+        navigate(`/search?query=${searchValue}&page=${1}`);
+        clearInput();
+    }
+
     return (
         <div className="search">
-            <form className="search__form">
+            <form className="search__form" onSubmit={handleSubmit}>
                 <label htmlFor="search" className="visually-hidden">Search:</label>
                 <input
                     className="search__input"
@@ -86,7 +93,7 @@ export default function Search() {
                 </div>
             </form>
 
-            {searchResults.length > 0 &&
+            {(searchValue && searchResults.length) > 0 &&
                 <div className="search__results">
                     {searchResults.map(film => {
                         return (

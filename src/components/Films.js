@@ -1,5 +1,5 @@
 import './Films.css';
-import React, {useEffect, useRef, useState} from "react";
+import React, {createRef, useEffect, useState} from "react";
 import {NavLink, useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 import FilmList from "./FilmList";
@@ -34,17 +34,22 @@ export default function Films({ nowPlayingFilms }) {
         )
     });
 
-    const filmsRef = useRef()
+    const parentRef = createRef();
+    const navigate = useNavigate();
+    function handlePageChange(data) {
+        navigate(`/${filterParam}/${data.selected + 1}`);
+        parentRef.current.scrollIntoView();
+    }
 
     return (
-        <div className="films container" ref={filmsRef}>
+        <div className="films container" ref={parentRef}>
             <div className="films__title">
                 <h2>Films</h2>
                 <div className="films__controls">
                     {sorting}
                 </div>
             </div>
-            {filmsData && <FilmList filmsData={filmsData} filterParam={filterParam} filmsRef={filmsRef} page={page} />}
+            {filmsData && <FilmList filmsData={filmsData} handlePageChange={handlePageChange} page={page} />}
         </div>
     )
 }
