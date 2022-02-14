@@ -14,3 +14,8 @@
 .similar__title {
     font-size: 1.25rem;
 }
+
+/* Makes all slides equal height and fixes autoHeight bug. */
+.swiper-slide {
+    height: auto !important;
+}

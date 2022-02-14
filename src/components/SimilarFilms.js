@@ -10,7 +10,6 @@ export default function SimilarFilms({ films }) {
                 slidesPerView={4}
                 slidesPerGroup={4}
                 loop={true}
-                autoHeight={true}
                 spaceBetween={6}
                 breakpoints={{
                     768: {
@@ -33,7 +32,7 @@ export default function SimilarFilms({ films }) {
                         <SliderButton direction="next"/>
                     </div>
                 </div>
-                {films.map(film => <SwiperSlide style={{height: "100%"}} key={film.id}><FilmCard film={film} /></SwiperSlide>)}
+                {films.map(film => <SwiperSlide key={film.id}><FilmCard film={film} /></SwiperSlide>)}
             </Swiper>
         </div>
     )
