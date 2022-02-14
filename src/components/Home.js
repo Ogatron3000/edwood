@@ -1,5 +1,5 @@
 import Slider from "./Slider";
-import FilmList from "./FilmList";
+import Films from "./Films";
 import axios from "axios";
 import {useEffect, useState} from "react";;
 
@@ -17,7 +17,7 @@ export default function Home() {
     return (
         <>
             {(genres && nowPlayingFilmsData) && <Slider films={nowPlayingFilmsData.results} genres={genres} />}
-            <FilmList nowPlayingFilms={nowPlayingFilmsData} />
+            <Films nowPlayingFilms={nowPlayingFilmsData} />
         </>
     )
 }
