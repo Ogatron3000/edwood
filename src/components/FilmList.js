@@ -27,6 +27,7 @@ export default function FilmList({ filmsData, handlePageChange, page }) {
                 disableInitialCallback={true}
                 forcePage={page - 1}
                 activeClassName={"active-page"}
+                renderOnZeroPageCount={null}
             />
         </>
     )
