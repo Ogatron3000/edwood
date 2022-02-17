@@ -8,22 +8,26 @@ import Auth from "./components/Auth";
 import FilmDetails from "./components/FilmDetails";
 import ValidateHome from "./components/ValidateHome";
 import SearchResults from "./components/SearchResults";
+import {Provider} from "react-redux";
+import store from "./store";
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<App/>}>
-                    <Route path="/" element={<ValidateHome/>}/>
-                    <Route path="/:filter/:page" element={<ValidateHome/>}/>
-                    <Route path='/film/:filmId' element={<FilmDetails/>}/>
-                    <Route path='/search' element={<SearchResults/>}/>
-                    <Route path='/sign-in' element={<Auth/>}/>
-                    <Route path='/sign-up' element={<Auth/>}/>
-                    <Route path="*" element={<Navigate to="/"/>}/>
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<App/>}>
+                        <Route path="/" element={<ValidateHome/>}/>
+                        <Route path="/:filter/:page" element={<ValidateHome/>}/>
+                        <Route path='/film/:filmId' element={<FilmDetails/>}/>
+                        <Route path='/search' element={<SearchResults/>}/>
+                        <Route path='/sign-in' element={<Auth/>}/>
+                        <Route path='/sign-up' element={<Auth/>}/>
+                        <Route path="*" element={<Navigate to="/"/>}/>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

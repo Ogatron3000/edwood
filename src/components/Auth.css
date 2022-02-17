@@ -22,6 +22,12 @@
     margin-bottom: 6px;
 }
 
+.auth_error {
+    font-size: var(--font-sm);
+    color: red;
+    margin-top: 6px;
+}
+
 .auth__buttons {
     display: flex;
     align-items: center;
