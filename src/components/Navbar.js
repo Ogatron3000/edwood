@@ -4,6 +4,8 @@ import Drawer from "./Drawer";
 import {useState} from "react";
 import Logo from "./Logo";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {signOut} from "../slices/authSlice";
 
 export default function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState({
@@ -21,6 +23,15 @@ export default function Navbar() {
         }
     }
 
+    const isLoggedIn = useSelector(state => state.currentUser.isLoggedIn);
+    const dispatch = useDispatch();
+
+    function handleSignOut(e) {
+        localStorage.clear();
+        dispatch(signOut());
+        e.target.blur();
+    }
+
     return (
         <header>
             <div className="container grid">
@@ -35,7 +46,12 @@ export default function Navbar() {
                     </button>
                     <ul className="nav__links">
                         <li><Link to="/" onClick={(e) => e.target.blur()}>Films</Link></li>
-                        <li><Link to="/sign-in" onClick={(e) => e.target.blur()}>Sign In</Link></li>
+                        {isLoggedIn
+                            ?
+                            <li><Link to="/" onClick={handleSignOut}>Sign Out</Link></li>
+                            :
+                            <li><Link to="/sign-in" onClick={(e) => e.target.blur()}>Sign In</Link></li>
+                        }
                     </ul>
                 </nav>
 

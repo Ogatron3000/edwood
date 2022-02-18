@@ -3,7 +3,7 @@ import {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import pathToDisplayName from "../helpers/pathToDisplayName";
 import {useDispatch, useSelector} from "react-redux";
-import {signIn, signUp} from "../slices/currentUserSlice";
+import {signIn, signUp} from "../slices/authSlice";
 
 export default function Auth() {
     const [formValues, setFormValues] = useState({

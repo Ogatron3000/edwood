@@ -1,35 +1,18 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 
+const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
+const SIGN_IN_ENDPOINT = 'signInWithPassword';
+const SIGN_UP_ENDPOINT = 'signUp';
+
 export const signIn = createAsyncThunk(
     'currentUser/signIn',
-    async function(data, {rejectWithValue}) {
-        data = {...data, returnSecureToken: true}
-        const key = process.env.REACT_APP_FIREBASE_API_KEY;
-        try {
-            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`, data);
-            return putUserInLocalStorage(response);
-        } catch (e) {
-            const error = e.response.data.error.message.toLowerCase().split("_").join(" ");
-            return rejectWithValue(error);
-        }
-    }
+    async (data, thunkApi) => auth(data, thunkApi, SIGN_IN_ENDPOINT),
 )
 
 export const signUp = createAsyncThunk(
-    'currentUser/signUp',
-    async function(data, {rejectWithValue}) {
-        data = {...data, returnSecureToken: true}
-        const key = process.env.REACT_APP_FIREBASE_API_KEY;
-        try {
-            const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`, data);;
-            return putUserInLocalStorage(response);
-        } catch (e) {
-            console.log(e.response)
-            const error = e.response.data.error.message.toLowerCase().split("_").join(" ");
-            return rejectWithValue(error);
-        }
-    }
+    'currentUser/signIn',
+    async (data, thunkApi) => auth(data, thunkApi, SIGN_UP_ENDPOINT),
 )
 
 const initialState = {
@@ -43,17 +26,31 @@ const initialState = {
     error: null,
 }
 
-export const currentUserSlice = createSlice({
+export const authSlice = createSlice({
     name: 'currentUser',
     initialState,
-    reducers: {},
+    reducers: {
+        signOut(state, action) {
+            state.userData =  {
+                userId: null,
+                token: null,
+                expirationDate: null,
+            }
+            state.isLoggedIn = false
+            state.status = 'idle'
+            state.error = null
+        }
+    },
     extraReducers: {
         [signIn.pending]: (state, action) => {
             state.status = 'loading'
+            state.error = null
         },
         [signIn.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.userData = action.payload
+            state.isLoggedIn = true
+            state.error = null
         },
         [signIn.rejected]: (state, action) => {
             state.status = 'failed'
@@ -62,10 +59,13 @@ export const currentUserSlice = createSlice({
 
         [signUp.pending]: (state, action) => {
             state.status = 'loading'
+            state.error = null
         },
         [signUp.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.userData = action.payload
+            state.isLoggedIn = true
+            state.error = null
         },
         [signUp.rejected]: (state, action) => {
             state.status = 'failed'
@@ -74,10 +74,28 @@ export const currentUserSlice = createSlice({
     },
 })
 
-export default currentUserSlice.reducer;
+export const { signOut } = authSlice.actions;
+
+export default authSlice.reducer;
+
+
+
+// Helpers
+
+async function auth(data, thunkApi, endpoint) {
+    data = {...data, returnSecureToken: true}
+    try {
+        const response =
+            await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:${endpoint}?key=${API_KEY}`, data);
+        return putUserInLocalStorage(response);
+    } catch (e) {
+        const message = e.response.data.error.message
+        return thunkApi.rejectWithValue(prettifyErrorMessage(message));
+    }
+}
 
 function putUserInLocalStorage(response) {
-    const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+    const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000).toString();
     localStorage.setItem('token', response.data.idToken);
     localStorage.setItem('expirationDate', expirationDate);
     localStorage.setItem('userId', response.data.localId);
@@ -86,4 +104,9 @@ function putUserInLocalStorage(response) {
         token: response.data.idToken,
         expirationDate,
     };
+}
+
+function prettifyErrorMessage(error) {
+    const msg = error.toLowerCase().split("_").join(" ");
+    return msg[0].toUpperCase() + msg.slice(1) + '.'
 }
