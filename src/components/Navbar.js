@@ -23,7 +23,7 @@ export default function Navbar() {
         }
     }
 
-    const isLoggedIn = useSelector(state => state.currentUser.isLoggedIn);
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const dispatch = useDispatch();
 
     function handleSignOut(e) {

@@ -20,12 +20,12 @@ export default function Auth() {
     let linkToOtherPage = pathname === '/sign-in' ? '/sign-up' : '/sign-in';
 
     const dispatch = useDispatch();
-    const currentUser = useSelector(state => state.currentUser);
+    const auth = useSelector(state => state.auth);
 
     const canAuth =
         Object.values(formValues).every(Boolean) &&
-        ['idle', 'failed'].includes(currentUser.status) &&
-        !currentUser.isLoggedIn;
+        ['idle', 'failed'].includes(auth.status) &&
+        !auth.isLoggedIn;
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -35,7 +35,7 @@ export default function Auth() {
             } else {
                 await dispatch(signUp(formValues))
             }
-            if (currentUser.status === 'succeeded') {
+            if (auth.status === 'succeeded') {
                 setFormValues({email: '', password: ''})
             }
         }
@@ -48,16 +48,16 @@ export default function Auth() {
                 <div className="auth__input">
                     <label htmlFor="email">Email:</label>
                     <input type="email" name="email" value={formValues.email} onChange={handleChange} />
-                    {(currentUser.error && currentUser.error.includes('email')) && <span className="auth_error">{currentUser.error}</span>}
+                    {(auth.error && auth.error.includes('email')) && <span className="auth_error">{auth.error}</span>}
                 </div>
                 <div className="auth__input">
                     <label htmlFor="email">Password:</label>
                     <input type="password" name="password" value={formValues.password} onChange={handleChange}  />
-                    {(currentUser.error && currentUser.error.includes('password')) && <span className="auth_error">{currentUser.error}</span>}
+                    {(auth.error && auth.error.includes('password')) && <span className="auth_error">{auth.error}</span>}
                 </div>
                 <div className="auth__buttons">
-                    <button type="submit" className="button button-primary" disabled={currentUser.status === 'loading'}>
-                        {currentUser.status === 'loading' ? 'Loading...' : pathToDisplayName(pathname)}
+                    <button type="submit" className="button button-primary" disabled={auth.status === 'loading'}>
+                        {auth.status === 'loading' ? 'Loading...' : pathToDisplayName(pathname)}
                     </button>
                     <Link to={linkToOtherPage} className="button button-secondary" onClick={(e) => e.target.blur()}>
                         {pathToDisplayName(linkToOtherPage)}

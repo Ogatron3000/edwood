@@ -6,12 +6,12 @@ const SIGN_IN_ENDPOINT = 'signInWithPassword';
 const SIGN_UP_ENDPOINT = 'signUp';
 
 export const signIn = createAsyncThunk(
-    'currentUser/signIn',
+    'auth/signIn',
     async (data, thunkApi) => auth(data, thunkApi, SIGN_IN_ENDPOINT),
 )
 
 export const signUp = createAsyncThunk(
-    'currentUser/signIn',
+    'auth/signIn',
     async (data, thunkApi) => auth(data, thunkApi, SIGN_UP_ENDPOINT),
 )
 
@@ -27,7 +27,7 @@ const initialState = {
 }
 
 export const authSlice = createSlice({
-    name: 'currentUser',
+    name: 'auth',
     initialState,
     reducers: {
         signOut(state, action) {
