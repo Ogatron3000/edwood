@@ -48,7 +48,10 @@ export default function Navbar() {
                         <li><Link to="/" onClick={(e) => e.target.blur()}>Films</Link></li>
                         {isLoggedIn
                             ?
-                            <li><Link to="/" onClick={handleSignOut}>Sign Out</Link></li>
+                            <>
+                                <li><Link to="/watchlist" onClick={(e) => e.target.blur()}>Watchlist</Link></li>
+                                <li><Link to="/" onClick={handleSignOut}>Sign Out</Link></li>
+                            </>
                             :
                             <li><Link to="/sign-in" onClick={(e) => e.target.blur()}>Sign In</Link></li>
                         }

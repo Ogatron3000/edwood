@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {fetchWatchlist} from "./watchlistSlice";
 
 const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
 const SIGN_IN_ENDPOINT = 'signInWithPassword';
@@ -87,7 +88,10 @@ async function auth(data, thunkApi, endpoint) {
     try {
         const response =
             await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:${endpoint}?key=${API_KEY}`, data);
-        return putUserInLocalStorage(response);
+        const user = putUserInLocalStorage(response);
+        const {userId, token} = user;
+        await thunkApi.dispatch(fetchWatchlist({userId, token}));
+        return user;
     } catch (e) {
         const message = e.response.data.error.message
         return thunkApi.rejectWithValue(prettifyErrorMessage(message));

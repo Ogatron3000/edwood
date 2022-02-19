@@ -10,6 +10,15 @@ import ValidateHome from "./components/ValidateHome";
 import SearchResults from "./components/SearchResults";
 import {Provider} from "react-redux";
 import store from "./store";
+import RequiredAuth from "./components/RequiredAuth";
+import Watchlist from "./components/Watchlist";
+import {fetchWatchlist} from "./slices/watchlistSlice";
+
+
+if (store.getState().auth.isLoggedIn) {
+    const {userId, token} = store.getState().auth.userData;
+    store.dispatch(fetchWatchlist({userId, token}))
+}
 
 ReactDOM.render(
     <React.StrictMode>
@@ -23,6 +32,9 @@ ReactDOM.render(
                         <Route path='/search' element={<SearchResults/>}/>
                         <Route path='/sign-in' element={<Auth/>}/>
                         <Route path='/sign-up' element={<Auth/>}/>
+                        <Route element={<RequiredAuth />}>
+                            <Route path="/watchlist" element={<Watchlist />}/>
+                        </Route>
                         <Route path="*" element={<Navigate to="/"/>}/>
                     </Route>
                 </Routes>
