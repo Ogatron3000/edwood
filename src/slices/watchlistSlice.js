@@ -71,6 +71,13 @@ export const watchlistSlice = createSlice({
             state.status = 'failed'
             state.error = action.payload
         },
+
+        // listen to action from auth slice
+        'auth/signOut': (state, action) => {
+            state.films = []
+            state.status = 'idle'
+            state.error = null
+        }
     }
 })
 
