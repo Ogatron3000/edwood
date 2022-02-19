@@ -1,6 +1,6 @@
 import './Auth.css';
 import {useState} from "react";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import pathToDisplayName from "../helpers/pathToDisplayName";
 import {useDispatch, useSelector} from "react-redux";
 import {signIn, signUp} from "../slices/authSlice";
@@ -21,6 +21,7 @@ export default function Auth() {
 
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
+    const navigate = useNavigate()
 
     const canAuth =
         Object.values(formValues).every(Boolean) &&
@@ -37,6 +38,7 @@ export default function Auth() {
             }
             if (auth.status === 'succeeded') {
                 setFormValues({email: '', password: ''})
+                navigate('/')
             }
         }
     }

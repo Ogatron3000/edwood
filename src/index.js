@@ -13,6 +13,7 @@ import store from "./store";
 import RequiredAuth from "./components/RequiredAuth";
 import Watchlist from "./components/Watchlist";
 import {fetchWatchlist} from "./slices/watchlistSlice";
+import PublicOnly from "./components/PublicOnly";
 
 
 if (store.getState().auth.isLoggedIn) {
@@ -30,10 +31,12 @@ ReactDOM.render(
                         <Route path="/:filter/:page" element={<ValidateHome/>}/>
                         <Route path='/film/:filmId' element={<FilmDetails/>}/>
                         <Route path='/search' element={<SearchResults/>}/>
-                        <Route path='/sign-in' element={<Auth/>}/>
-                        <Route path='/sign-up' element={<Auth/>}/>
-                        <Route element={<RequiredAuth />}>
-                            <Route path="/watchlist" element={<Watchlist />}/>
+                        <Route element={<PublicOnly/>}>
+                            <Route path='/sign-in' element={<Auth/>}/>
+                            <Route path='/sign-up' element={<Auth/>}/>
+                        </Route>
+                        <Route element={<RequiredAuth/>}>
+                            <Route path="/watchlist" element={<Watchlist/>}/>
                         </Route>
                         <Route path="*" element={<Navigate to="/"/>}/>
                     </Route>
