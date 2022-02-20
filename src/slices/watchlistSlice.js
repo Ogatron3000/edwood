@@ -48,7 +48,7 @@ export const watchlistSlice = createSlice({
         },
         [addToWatchlist.fulfilled]: (state, action) => {
             state.status = 'succeeded'
-            if (state.films.find(film => film.id !== action.payload.id)) {
+            if (!state.films.find(film => film.id === action.payload.id)) {
                 state.films.push(action.payload)
             }
             state.error = null
