@@ -3,6 +3,7 @@ import React, {createRef, useEffect, useState} from "react";
 import {NavLink, useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 import FilmList from "./FilmList";
+import ReactPaginate from "react-paginate";
 
 export default function Films({ nowPlayingFilms }) {
     const [filmsData, setFilmsData] = useState();
@@ -49,7 +50,25 @@ export default function Films({ nowPlayingFilms }) {
                     {sorting}
                 </div>
             </div>
-            {filmsData && <FilmList filmsData={filmsData} handlePageChange={handlePageChange} page={page} />}
+            {filmsData &&
+                <>
+                    <FilmList films={filmsData.results}/>
+                    <ReactPaginate
+                        className={"film-list-pagination"}
+                        breakLabel="..."
+                        nextLabel=">"
+                        onPageChange={handlePageChange}
+                        marginPagesDisplayed={1}
+                        pageRangeDisplayed={2}
+                        pageCount={Math.min(filmsData.total_pages, 500)}
+                        previousLabel="<"
+                        disableInitialCallback={true}
+                        forcePage={page - 1}
+                        activeClassName={"active-page"}
+                        renderOnZeroPageCount={null}
+                    />
+                </>
+            }
         </div>
     )
 }

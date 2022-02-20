@@ -1,0 +1,16 @@
+.watchlist {
+    padding-top: var(--page-padding);
+    padding-bottom: var(--page-padding);
+}
+
+.watchlist__title {
+    color: var(--black);
+    margin-bottom: var(--page-padding);
+    font-size: 1.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+    .watchlist__title {
+        font-size: 2rem;
+    }
+}

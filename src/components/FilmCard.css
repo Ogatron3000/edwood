@@ -66,7 +66,7 @@
 }
 
 .film-card__watchlist:hover > svg {
-    color: #8bb539;
+    color: var(--green);
 }
 
 @media screen and (min-width: 768px) {

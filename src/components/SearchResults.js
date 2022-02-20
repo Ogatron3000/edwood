@@ -2,7 +2,8 @@ import './SearchResults.css';
 import FilmList from "./FilmList";
 import {useSearchParams} from "react-router-dom";
 import axios from "axios";
-import {createRef, useEffect, useState} from "react";
+import React, {createRef, useEffect, useState} from "react";
+import ReactPaginate from "react-paginate";
 
 export default function SearchResults() {
     const [filmsData, setFilmsData] = useState();
@@ -25,7 +26,25 @@ export default function SearchResults() {
     return (
         <div className="search-results container" ref={parentRef}>
             <h1 className="search-results__title">Results for "{query}"</h1>
-            {filmsData && <FilmList filmsData={filmsData} page={page} handlePageChange={handlePageChange} />}
+            {filmsData &&
+                <>
+                    <FilmList films={filmsData.results}/>
+                    <ReactPaginate
+                        className={"film-list-pagination"}
+                        breakLabel="..."
+                        nextLabel=">"
+                        onPageChange={handlePageChange}
+                        marginPagesDisplayed={1}
+                        pageRangeDisplayed={2}
+                        pageCount={Math.min(filmsData.total_pages, 500)}
+                        previousLabel="<"
+                        disableInitialCallback={true}
+                        forcePage={page - 1}
+                        activeClassName={"active-page"}
+                        renderOnZeroPageCount={null}
+                    />
+                </>
+            }
         </div>
     )
 }
