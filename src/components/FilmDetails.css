@@ -89,10 +89,15 @@
     margin-bottom: 12px;
 }
 
+.film__rating-and-watchlist-button {
+    display: flex;
+    margin-bottom: 12px;
+}
+
 .film__rating {
     display: flex;
     align-items: baseline;
-    margin-bottom: 6px;
+    margin-right: 6px;
 }
 
 .film__trailer-and-duration {
@@ -231,6 +236,10 @@
 
     .film__director {
         margin-left: 4px;
+    }
+
+    .film__rating-and-watchlist-button > button > svg {
+        color: var(--black);
     }
 
     .film__bottom {

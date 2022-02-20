@@ -56,19 +56,6 @@
     margin-right: 3px;
 }
 
-.film-card__watchlist {
-    cursor: pointer;
-}
-
-.film-card__watchlist > svg {
-    width: 20px;
-    height: 20px;
-}
-
-.film-card__watchlist:hover > svg {
-    color: var(--green);
-}
-
 @media screen and (min-width: 768px) {
     .film-card__info {
         display: block;

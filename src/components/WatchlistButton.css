@@ -1,0 +1,12 @@
+.watchlist-button {
+    cursor: pointer;
+}
+
+.watchlist-button > svg {
+    width: 20px;
+    height: 20px;
+}
+
+.watchlist-button:hover > svg {
+    color: var(--green);
+}

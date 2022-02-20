@@ -6,6 +6,7 @@ import TrailerButton from "./TrailerButton";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
 import SimilarFilms from "./SimilarFilms";
 import FilmDetailsTabs from "./FilmDetailsTabs";
+import WatchlistButton from "./WatchlistButton";
 
 export default function FilmDetails() {
     const [film, setFilm] = useState();
@@ -48,9 +49,12 @@ export default function FilmDetails() {
                                         <div className="film__director hide-for-desktop">
                                             {director?.name}
                                         </div>
-                                        <div className="film__rating">
-                                            <span>{convertToFiveStarRating(film.vote_average)}</span>
-                                            <div className="film__stars" style={{'--rating': film.vote_average}}/>
+                                        <div className="film__rating-and-watchlist-button">
+                                            <div className="film__rating">
+                                                <span>{convertToFiveStarRating(film.vote_average)}</span>
+                                                <div className="film__stars" style={{'--rating': film.vote_average}}/>
+                                            </div>
+                                            <WatchlistButton film={film} />
                                         </div>
                                         <div className="film__trailer-and-duration">
                                             <TrailerButton videos={film.videos.results}/>
