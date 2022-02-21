@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createEntityAdapter, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 
 const DB_URL = process.env.REACT_APP_FIREBASE_DB_URL;
@@ -19,62 +19,26 @@ export const removeFromWatchlist = createAsyncThunk('watchlist/removeFromWatchli
     return filmId
 })
 
+const watchlistAdapter = createEntityAdapter();
+
+const initialState = watchlistAdapter.getInitialState({
+    status: 'idle',
+    error: null,
+})
+
 export const watchlistSlice = createSlice({
     name: 'watchlist',
-    initialState: {
-        films: [],
-        status: 'idle',
-        error: null,
-    },
+    initialState,
     reducers: {},
     extraReducers: {
-        [fetchWatchlist.pending]: (state, action) => {
-            state.status = 'loading'
-            state.error = null
-        },
-        [fetchWatchlist.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
-            state.films = action.payload
-            state.error = null
-        },
-        [fetchWatchlist.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.payload
-        },
-
-        [addToWatchlist.pending]: (state, action) => {
-            state.status = 'loading'
-            state.error = null
-        },
-        [addToWatchlist.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
-            if (!state.films.find(film => film.id === action.payload.id)) {
-                state.films.push(action.payload)
-            }
-            state.error = null
-        },
-        [addToWatchlist.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.payload
-        },
-
-        [removeFromWatchlist.pending]: (state, action) => {
-            state.status = 'loading'
-            state.error = null
-        },
-        [removeFromWatchlist.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
-            state.films = state.films.filter(film => film.id !== action.payload)
-            state.error = null
-        },
-        [removeFromWatchlist.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.payload
-        },
+        [fetchWatchlist.fulfilled]: watchlistAdapter.setAll,
+        [addToWatchlist.fulfilled]: watchlistAdapter.addOne,
+        [removeFromWatchlist.fulfilled]: watchlistAdapter.removeOne,
 
         // listen to action from auth slice
         'auth/signOut': (state, action) => {
-            state.films = []
+            state.ids = []
+            state.entities = {}
             state.status = 'idle'
             state.error = null
         }
@@ -82,3 +46,9 @@ export const watchlistSlice = createSlice({
 })
 
 export default watchlistSlice.reducer;
+
+export const {
+    selectAll: selectAllFilms,
+    selectById: selectFilmById,
+    selectIds: selectFilmIds,
+} = watchlistAdapter.getSelectors(state => state.watchlist)

@@ -1,13 +1,12 @@
 import './WatchlistButton.css'
 import {useDispatch, useSelector} from "react-redux";
-import {addToWatchlist, removeFromWatchlist} from "../slices/watchlistSlice";
+import {addToWatchlist, removeFromWatchlist, selectFilmById} from "../slices/watchlistSlice";
 
 export default function WatchlistButton({ film }) {
     const dispatch = useDispatch();
-    const watchlist = useSelector(state => state.watchlist);
+    const isOnWatchlist = useSelector(state => !!selectFilmById(state, film.id));
     const {userData, isLoggedIn} = useSelector(state => state.auth);
     const {userId, token} = userData;
-    const isOnWatchlist = watchlist.films.find(f => f.id === film.id);
 
     function handleClick(film, userId, token) {
         if (!isLoggedIn) {
