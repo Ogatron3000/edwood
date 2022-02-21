@@ -14,7 +14,12 @@ import RequiredAuth from "./components/RequiredAuth";
 import Watchlist from "./components/Watchlist";
 import {fetchWatchlist} from "./slices/watchlistSlice";
 import PublicOnly from "./components/PublicOnly";
+import {fetchFilms} from "./slices/filmsSlice";
+import {fetchSliderFilms, fetchGenres} from "./slices/sliderFilmsSlice";
 
+store.dispatch(fetchGenres())
+store.dispatch(fetchSliderFilms())
+store.dispatch(fetchFilms({filter: 'popular'}))
 
 if (store.getState().auth.isLoggedIn) {
     const {userId, token} = store.getState().auth.userData;

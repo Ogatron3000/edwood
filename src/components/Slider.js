@@ -5,13 +5,18 @@ import './Slider.css';
 import {Pagination} from "swiper";
 import {NavLink} from "react-router-dom";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
+import {useSelector} from "react-redux";
+import React from 'react'
 
-export default function Slider({ films, genres }) {
-    const pagination = {
-        clickable: true
+export default React.memo(function Slider() {
+    const {genres, sliderFilms} = useSelector(state => state.sliderFilms)
+
+    // gets rid of last slide selected bug
+    if (sliderFilms.length === 0) {
+        return null
     }
 
-    const swiperSlides = films.slice(0, 4).map((film) => {
+    const swiperSlides = sliderFilms.slice(0, 4).map((film) => {
             return (
                 <SwiperSlide key={film.id}>
                     <div className="slide">
@@ -21,7 +26,7 @@ export default function Slider({ films, genres }) {
                             <div className="slide__info">
                                 <span className="slide__rating">{convertToFiveStarRating(film.vote_average)}</span>
                                 <div className="slide__genre">
-                                    {film.genre_ids.map(id => genres.find(genre => genre.id === id).name).join(' | ')}
+                                    {film.genre_ids.map(id => genres.find(genre => genre.id === id)?.name).join(' | ')}
                                 </div>
                             </div>
                             <p className="slide__desc">{film.overview}</p>
@@ -37,11 +42,11 @@ export default function Slider({ films, genres }) {
                 slidesPerView={1}
                 loop={true}
                 autoHeight={true}
-                pagination={pagination}
+                pagination={{clickable: true}}
                 modules={[Pagination]}
                 className="slider"
             >
                 {swiperSlides}
             </Swiper>
     );
-};
+})
