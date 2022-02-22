@@ -30,7 +30,7 @@ export default React.memo(function Slider() {
             return (
                 <SwiperSlide key={film.id}>
                     <div className="slide">
-                        <img className="slide__img" src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt=""/>
+                        <img className="slide__img" src={`https://image.tmdb.org/t/p/w1280/${film.backdrop_path}`} alt=""/>
                         <div className="slide__content">
                             <h2 className="slide__title">{film.title}</h2>
                             <div className="slide__info">

@@ -8,8 +8,8 @@ export default React.memo(function FilmCard({ film }) {
 
     return (
         <div className="film-card">
-            <Link to={`/film/${film.id}`}>
-                <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
+            <Link to={`/film/${film.id}`} aria-label={film.title}>
+                <img src={`https://image.tmdb.org/t/p/w300/${film.poster_path}`} alt=""/>
             </Link>
             <div className="film-card__info">
                 <h3>{film.title}</h3>
