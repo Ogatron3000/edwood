@@ -5,18 +5,28 @@ import './Slider.css';
 import {Pagination} from "swiper";
 import {NavLink} from "react-router-dom";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
-import {useSelector} from "react-redux";
 import React from 'react'
+import {useGetFilmsQuery, useGetGenresQuery} from "../slices/apiSlice";
 
 export default React.memo(function Slider() {
-    const {genres, sliderFilms} = useSelector(state => state.sliderFilms)
+    const {
+        data: films,
+        isLoading: isLoadingFilms,
+        isSuccess: isSuccessFilms,
+    } = useGetFilmsQuery({ filter: 'now_playing', page: 1 })
+
+    const {
+        data: genres,
+        isLoading: isLoadingGenres,
+        isSuccess: isSuccessGenres,
+    } = useGetGenresQuery()
 
     // gets rid of last slide selected bug
-    if (sliderFilms.length === 0) {
+    if (isLoadingFilms || isLoadingGenres) {
         return null
     }
 
-    const swiperSlides = sliderFilms.slice(0, 4).map((film) => {
+    const swiperSlides = (isSuccessFilms && isSuccessGenres) && films.results.slice(0, 4).map((film) => {
             return (
                 <SwiperSlide key={film.id}>
                     <div className="slide">
@@ -26,7 +36,7 @@ export default React.memo(function Slider() {
                             <div className="slide__info">
                                 <span className="slide__rating">{convertToFiveStarRating(film.vote_average)}</span>
                                 <div className="slide__genre">
-                                    {film.genre_ids.map(id => genres.find(genre => genre.id === id)?.name).join(' | ')}
+                                     {film.genre_ids.map(id => genres.genres.find(genre => genre.id === id)?.name).join(' | ')}
                                 </div>
                             </div>
                             <p className="slide__desc">{film.overview}</p>

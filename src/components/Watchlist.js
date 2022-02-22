@@ -1,15 +1,15 @@
 import './Watchlist.css';
 import {useSelector} from "react-redux";
 import FilmList from "./FilmList";
-import {selectFilmById, selectFilmIds} from "../slices/watchlistSlice";
+import {selectAllFilms} from "../slices/watchlistSlice";
 
 export default function Watchlist() {
-    const filmIds = useSelector(selectFilmIds);
+    const films = useSelector(selectAllFilms);
 
     return (
         <div className='watchlist container'>
             <h1 className='watchlist__title'>Watchlist</h1>
-            <FilmList filmIds={filmIds} selector={selectFilmById} />
+            <FilmList films={films} />
         </div>
     )
 }

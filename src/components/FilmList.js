@@ -1,11 +1,11 @@
 import './FilmList.css';
 import FilmCard from "./FilmCard";
 
-export default function FilmList({ filmIds, selector }) {
+export default function FilmList({ films }) {
 
-    const filmCards = filmIds.map(filmId => {
+    const filmCards = films.map(film => {
         return (
-            <FilmCard filmId={filmId} selector={selector} key={filmId} />
+            <FilmCard film={film} key={film.id} />
         )
     })
 

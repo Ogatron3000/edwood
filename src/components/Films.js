@@ -3,21 +3,49 @@ import React, {createRef, useEffect} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import FilmList from "./FilmList";
 import ReactPaginate from "react-paginate";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchFilms, selectFilmById} from "../slices/filmsSlice";
 import FilmsControls from "./FilmsControls";
+import {useGetFilmsQuery} from "../slices/apiSlice";
 
 export default function Films() {
-    const {ids: filmIds, totalPages, status: loadingStatus} = useSelector(state => state.films)
-    const dispatch = useDispatch()
+    let {filter = 'popular', page = 1} = useParams();
 
-    let {filter, page} = useParams();
-    filter = filter ? filter : 'popular';
-    page = page ? page : 1;
+    const {
+        data: films,
+        isLoading,
+        isSuccess,
+        isFetching,
+        isError,
+        error
+    } = useGetFilmsQuery({ filter, page })
 
-    useEffect(() => {
-        dispatch(fetchFilms({filter, page}))
-    }, [filter, page]);
+    let content
+
+    if (isLoading) {
+        content = <div style={{color: 'var(--black)'}}>Loading...</div>
+    } else if (isSuccess) {
+        content =
+            <>
+                <div style={{opacity: isFetching ? 0.5 : 1}}>
+                    <FilmList films={films.results} />
+                </div>
+                <ReactPaginate
+                    className={"film-list-pagination"}
+                    breakLabel="..."
+                    nextLabel=">"
+                    onPageChange={handlePageChange}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={2}
+                    pageCount={Math.min(films.total_pages, 500)}
+                    previousLabel="<"
+                    disableInitialCallback={true}
+                    forcePage={page - 1}
+                    activeClassName={"active-page"}
+                    renderOnZeroPageCount={null}
+                />
+            </>
+    } else if (isError) {
+        content = <div style={{color: 'var(--black)'}}>{error.status}: {error.data.status_message}</div>
+    }
 
     const parentRef = createRef();
     const navigate = useNavigate();
@@ -34,23 +62,7 @@ export default function Films() {
                     <FilmsControls filter={filter}/>
                 </div>
             </div>
-            <div style={{opacity: loadingStatus === 'loading' ? 0.5 : 1, transitionDuration: '0.5s' }}>
-                <FilmList filmIds={filmIds} selector={selectFilmById} />
-            </div>
-            <ReactPaginate
-                className={"film-list-pagination"}
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePageChange}
-                marginPagesDisplayed={1}
-                pageRangeDisplayed={2}
-                pageCount={Math.min(totalPages, 500)}
-                previousLabel="<"
-                disableInitialCallback={true}
-                forcePage={page - 1}
-                activeClassName={"active-page"}
-                renderOnZeroPageCount={null}
-            />
+            {content}
         </div>
     )
 }

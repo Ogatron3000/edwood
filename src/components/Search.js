@@ -1,25 +1,30 @@
 import './Search.css'
 import {useEffect, useState} from "react";
-import axios from "axios";
 import {NavLink, useNavigate} from "react-router-dom";
+import {useGetFilmCreditsMutation, useSearchMutation} from "../slices/apiSlice";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [clearButtonVisible, setClearButtonVisible] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
+    const [search] = useSearchMutation()
+    const [getFilmCredits, {isLoading}] = useGetFilmCreditsMutation()
+
     useEffect(() => {
         setSearchResults([])
-        if (searchValue) {
-            axios.get(`${process.env.REACT_APP_URL_BASE}search/movie${process.env.REACT_APP_API_KEY}&query=${searchValue}`)
+        if (searchValue.trim()) {
+            search({query: searchValue, page: 1})
                 .then(({ data }) => {
-                    let films = data.results.slice(0, 5);
-                    let creditsPromises = films.map(film => axios.get(`${process.env.REACT_APP_URL_BASE}movie/${film.id}/credits${process.env.REACT_APP_API_KEY}`))
+                    let films = data.results.slice(0, 5)
+                    let creditsPromises = films.map(film => getFilmCredits(film.id))
                     Promise.all(creditsPromises).then(response => {
-                        response.forEach((res, i) => films[i].director = res.data.crew.find(crew => crew.job === 'Director')?.name);
+                        response.forEach((res, i) => {
+                            films[i] = {...films[i], director: res.data.crew.find(crew => crew.job === 'Director')?.name}
+                        });
                         setSearchResults(films);
-                    });
-                })
+                    })
+            })
         }
     }, [searchValue]);
 
@@ -93,22 +98,34 @@ export default function Search() {
                 </div>
             </form>
 
-            {(searchValue && searchResults.length) > 0 &&
-                <div className="search__results">
-                    {searchResults.map(film => {
-                        return (
-                            <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
-                                {film.poster_path && <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>}
-                                <div>
-                                    <h3>{film.title}</h3>
-                                    <div>{film.release_date?.split('-')[0]}</div>
-                                    <div>{film.director}</div>
-                                </div>
-                            </NavLink>
-                        )
-                    })}
+            {searchResults.length > 0 &&
+                <div className="search__results" style={isLoading ? {
+                    height: '300px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                } : null}>
+                    {isLoading
+                        ?
+                        "Loading..."
+                        :
+                        searchResults.map(film => {
+                            return (
+                                <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
+                                    {film.poster_path && <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>}
+                                    <div>
+                                        <h3>{film.title}</h3>
+                                        <div>{film.release_date?.split('-')[0]}</div>
+                                        <div>{film.director}</div>
+                                    </div>
+                                </NavLink>
+                            )
+                        })
+                    }
                 </div>
             }
+
+
         </div>
     )
 }

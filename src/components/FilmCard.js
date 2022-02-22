@@ -2,16 +2,13 @@ import './FilmCard.css';
 import {Link} from "react-router-dom";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
 import WatchlistButton from "./WatchlistButton";
-import {useSelector} from "react-redux";
 import React from 'react'
 
-export default React.memo(function FilmCard({ filmId, selector }) {
-    // selector defines if we get film from watchlist or films state
-    const film = useSelector(state => selector(state, filmId))
+export default React.memo(function FilmCard({ film }) {
 
     return (
         <div className="film-card">
-            <Link to={`/film/${filmId}`}>
+            <Link to={`/film/${film.id}`}>
                 <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>
             </Link>
             <div className="film-card__info">
