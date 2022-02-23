@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {lazy} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
-import Auth from "./components/Auth";
-import FilmDetails from "./components/FilmDetails";
-import ValidateHome from "./components/ValidateHome";
-import SearchResults from "./components/SearchResults";
 import {Provider} from "react-redux";
 import store from "./store";
-import RequiredAuth from "./components/RequiredAuth";
-import Watchlist from "./components/Watchlist";
 import {fetchWatchlist} from "./slices/watchlistSlice";
-import PublicOnly from "./components/PublicOnly";
+
+const Auth = lazy(() => import('./components/Auth'));
+const FilmDetails = lazy(() => import('./components/FilmDetails'));
+const ValidateHome = lazy(() => import('./components/ValidateHome'));
+const SearchResults = lazy(() => import('./components/SearchResults'));
+const RequiredAuth = lazy(() => import('./components/RequiredAuth'));
+const Watchlist = lazy(() => import('./components/Watchlist'));
+const PublicOnly = lazy(() => import('./components/PublicOnly'));
 
 if (store.getState().auth.isLoggedIn) {
     store.dispatch(fetchWatchlist())
