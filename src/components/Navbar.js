@@ -46,6 +46,14 @@ export default function Navbar() {
                     </button>
                     <ul className="nav__links">
                         <li><Link to="/" onClick={(e) => e.target.blur()}>Films</Link></li>
+                        <li>
+                            <a href="https://github.com/Ogatron3000/edwood"
+                               target="_blank"
+                               onClick={(e) => e.target.blur()}
+                            >
+                                Github
+                            </a>
+                        </li>
                         {isLoggedIn
                             ?
                             <>
@@ -59,7 +67,13 @@ export default function Navbar() {
                 </nav>
 
                 {drawerOpen.display &&
-                    <Drawer handleClick={toggleDrawer} drawerVisible={drawerOpen.onscreen} />}
+                    <Drawer
+                        toggleDrawer={toggleDrawer}
+                        drawerVisible={drawerOpen.onscreen}
+                        isLoggedIn={isLoggedIn}
+                        handleSignOut={handleSignOut}
+                    />
+                }
             </div>
         </header>
     )
