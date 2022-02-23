@@ -36,8 +36,6 @@ export const watchlistSlice = createSlice({
         [removeFromWatchlist.fulfilled]: watchlistAdapter.removeOne,
 
         // listen to action from auth slice
-        'auth/signIn': (state, action) => fetchWatchlist,
-
         'auth/signOut': (state, action) => {
             state.ids = []
             state.entities = {}
