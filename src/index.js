@@ -16,8 +16,7 @@ import {fetchWatchlist} from "./slices/watchlistSlice";
 import PublicOnly from "./components/PublicOnly";
 
 if (store.getState().auth.isLoggedIn) {
-    const {userId, token} = store.getState().auth.userData;
-    store.dispatch(fetchWatchlist({userId, token}))
+    store.dispatch(fetchWatchlist())
 }
 
 ReactDOM.render(

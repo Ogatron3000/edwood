@@ -5,31 +5,22 @@ import {addToWatchlist, removeFromWatchlist, selectFilmById} from "../slices/wat
 export default function WatchlistButton({ film }) {
     const dispatch = useDispatch();
     const isOnWatchlist = useSelector(state => !!selectFilmById(state, film.id));
-    const {userData, isLoggedIn} = useSelector(state => state.auth);
-    const {userId, token} = userData;
+    const {isLoggedIn} = useSelector(state => state.auth);
 
-    function handleClick(film, userId, token) {
+    function handleClick(film) {
         if (!isLoggedIn) {
             return
         }
         if (isOnWatchlist) {
-            dispatch(removeFromWatchlist({
-                filmId: film.id,
-                userId,
-                token,
-            }))
+            dispatch(removeFromWatchlist({filmId: film.id}))
         } else {
-            dispatch(addToWatchlist({
-                film,
-                userId,
-                token,
-            }))
+            dispatch(addToWatchlist({film}))
         }
     }
 
     return (
         <button className="watchlist-button"
-                onClick={() => handleClick(film, userId, token)}
+                onClick={() => handleClick(film)}
                 aria-label={isOnWatchlist ? 'Remove from watchlist.' : 'Add to watchlist.'}>
             <svg style={{color: isOnWatchlist ? 'var(--green)' : ''}} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />

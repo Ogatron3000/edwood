@@ -4,6 +4,7 @@ import pathToDisplayName from "../helpers/pathToDisplayName";
 import {useDispatch, useSelector} from "react-redux";
 import {auth} from "../slices/authSlice";
 import {useForm} from "react-hook-form";
+import {fetchWatchlist} from "../slices/watchlistSlice";
 
 export default function Auth() {
     const { pathname } = useLocation();
@@ -21,6 +22,7 @@ export default function Auth() {
         if (canAuth) {
             try {
                 await dispatch(auth({formValues: data, pathname})).unwrap()
+                await dispatch(fetchWatchlist());
             } catch (e) {
                 let key = Object.keys(e)[0]
                 setError(key, {
