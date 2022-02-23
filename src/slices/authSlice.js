@@ -91,5 +91,9 @@ function putUserInLocalStorage(response) {
 
 function prettifyErrorMessage(error) {
     const msg = error.toLowerCase().split("_").join(" ");
-    return msg[0].toUpperCase() + msg.slice(1) + '.'
+    const prettyMsg = msg[0].toUpperCase() + msg.slice(1) + '.'
+    if (msg.includes('email')) {
+        return {email: prettyMsg}
+    }
+    return {password: prettyMsg}
 }
