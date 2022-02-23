@@ -6,14 +6,23 @@ const API_KEY = process.env.REACT_APP_FIREBASE_API_KEY;
 const SIGN_IN_ENDPOINT = 'signInWithPassword';
 const SIGN_UP_ENDPOINT = 'signUp';
 
-export const signIn = createAsyncThunk(
-    'auth/signIn',
-    async (data, thunkApi) => auth(data, thunkApi, SIGN_IN_ENDPOINT),
-)
-
-export const signUp = createAsyncThunk(
-    'auth/signIn',
-    async (data, thunkApi) => auth(data, thunkApi, SIGN_UP_ENDPOINT),
+export const auth = createAsyncThunk(
+    'auth/authenticate',
+    async ({formValues, pathname}, thunkApi) => {
+        const endpoint = pathname === '/sign-in' ? SIGN_IN_ENDPOINT : SIGN_UP_ENDPOINT
+        try {
+            const response =
+                await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:${endpoint}?key=${API_KEY}`,
+                    {...formValues, returnSecureToken: true});
+            const user = putUserInLocalStorage(response);
+            const {userId, token} = user;
+            await thunkApi.dispatch(fetchWatchlist({userId, token}));
+            return user;
+        } catch (e) {
+            const message = e.response.data.error.message
+            return thunkApi.rejectWithValue(prettifyErrorMessage(message));
+        }
+    },
 )
 
 const initialState = {
@@ -43,32 +52,17 @@ export const authSlice = createSlice({
         }
     },
     extraReducers: {
-        [signIn.pending]: (state, action) => {
+        [auth.pending]: (state, action) => {
             state.status = 'loading'
             state.error = null
         },
-        [signIn.fulfilled]: (state, action) => {
+        [auth.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.userData = action.payload
             state.isLoggedIn = true
             state.error = null
         },
-        [signIn.rejected]: (state, action) => {
-            state.status = 'failed'
-            state.error = action.payload
-        },
-
-        [signUp.pending]: (state, action) => {
-            state.status = 'loading'
-            state.error = null
-        },
-        [signUp.fulfilled]: (state, action) => {
-            state.status = 'succeeded'
-            state.userData = action.payload
-            state.isLoggedIn = true
-            state.error = null
-        },
-        [signUp.rejected]: (state, action) => {
+        [auth.rejected]: (state, action) => {
             state.status = 'failed'
             state.error = action.payload
         },
@@ -82,21 +76,6 @@ export default authSlice.reducer;
 
 
 // Helpers
-
-async function auth(data, thunkApi, endpoint) {
-    data = {...data, returnSecureToken: true}
-    try {
-        const response =
-            await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:${endpoint}?key=${API_KEY}`, data);
-        const user = putUserInLocalStorage(response);
-        const {userId, token} = user;
-        await thunkApi.dispatch(fetchWatchlist({userId, token}));
-        return user;
-    } catch (e) {
-        const message = e.response.data.error.message
-        return thunkApi.rejectWithValue(prettifyErrorMessage(message));
-    }
-}
 
 function putUserInLocalStorage(response) {
     const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000).toString();
