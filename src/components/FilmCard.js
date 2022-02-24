@@ -3,13 +3,14 @@ import {Link} from "react-router-dom";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
 import WatchlistButton from "./WatchlistButton";
 import React from 'react'
+import FilmPoster from "./FilmPoster";
 
 export default React.memo(function FilmCard({ film }) {
 
     return (
         <div className="film-card">
             <Link to={`/film/${film.id}`} aria-label={film.title}>
-                <img src={`https://image.tmdb.org/t/p/w300/${film.poster_path}`} alt=""/>
+                <FilmPoster posterPath={film.poster_path} />
             </Link>
             <div className="film-card__info">
                 <h3>{film.title}</h3>

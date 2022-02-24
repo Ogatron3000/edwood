@@ -7,6 +7,8 @@ import {NavLink} from "react-router-dom";
 import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
 import React from 'react'
 import {useGetFilmsQuery, useGetGenresQuery} from "../slices/apiSlice";
+import Spinner from "./Spinner";
+import FilmBackdrop from "./FilmBackdrop";
 
 export default React.memo(function Slider() {
     const {
@@ -21,16 +23,15 @@ export default React.memo(function Slider() {
         isSuccess: isSuccessGenres,
     } = useGetGenresQuery()
 
-    // gets rid of last slide selected bug
     if (isLoadingFilms || isLoadingGenres) {
-        return null
+        return <div style={{ height: '50vh', width: '100%', background: 'var(--black)', position: 'relative'}}><Spinner /></div>
     }
 
     const swiperSlides = (isSuccessFilms && isSuccessGenres) && films.results.slice(0, 4).map((film) => {
             return (
                 <SwiperSlide key={film.id}>
                     <div className="slide">
-                        <img className="slide__img" src={`https://image.tmdb.org/t/p/w1280/${film.backdrop_path}`} alt=""/>
+                        <FilmBackdrop backdropPath={film.backdrop_path} />
                         <div className="slide__content">
                             <h2 className="slide__title">{film.title}</h2>
                             <div className="slide__info">

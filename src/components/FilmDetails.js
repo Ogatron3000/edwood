@@ -7,6 +7,9 @@ import SimilarFilms from "./SimilarFilms";
 import FilmDetailsTabs from "./FilmDetailsTabs";
 import WatchlistButton from "./WatchlistButton";
 import {useGetFilmDetailsQuery} from "../slices/apiSlice";
+import Spinner from "./Spinner";
+import FilmBackdrop from "./FilmBackdrop";
+import FilmPoster from "./FilmPoster";
 
 export default function FilmDetails() {
     const {filmId} = useParams();
@@ -27,7 +30,11 @@ export default function FilmDetails() {
     let content
 
     if (isLoading || isFetching) {
-        content = <div style={{color: 'var(--black)'}}>Loading...</div>
+        content =
+            <>
+                <div style={{ height: '50vh', width: '100%', background: 'var(--black)', position: 'relative'}}><Spinner /></div>
+                <div style={{ height: '50vh', width: '100%', position: 'relative'}}><Spinner /></div>
+            </>
     } else if (isSuccess) {
         let releaseYear = film.release_date && film.release_date.split('-')[0];
         let director = film.credits.crew.find(c => c.job === 'Director');
@@ -37,7 +44,7 @@ export default function FilmDetails() {
                 {film.backdrop_path &&
                     <div className="film__img--wrapper">
                         <div className="film__img">
-                            <img src={`https://image.tmdb.org/t/p/original${film.backdrop_path}`} alt=""/>
+                            <FilmBackdrop backdropPath={film.backdrop_path} />
                             <div className="film__img-overlay"/>
                         </div>
                     </div>
@@ -70,7 +77,7 @@ export default function FilmDetails() {
                                     </div>
                                 </div>
                                 <div className="film__poster">
-                                    {film.poster_path && <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt={film.title + ' poster.'}/>}
+                                    {film.poster_path && <FilmPoster posterPath={film.poster_path} />}
                                 </div>
                             </div>
                         </div>

@@ -1,10 +1,11 @@
 import './Films.css';
-import React, {createRef, useEffect} from "react";
+import React, {createRef} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import FilmList from "./FilmList";
 import ReactPaginate from "react-paginate";
 import FilmsControls from "./FilmsControls";
 import {useGetFilmsQuery} from "../slices/apiSlice";
+import Spinner from "./Spinner";
 
 export default function Films() {
     let {filter = 'popular', page = 1} = useParams();
@@ -21,7 +22,7 @@ export default function Films() {
     let content
 
     if (isLoading) {
-        content = <div style={{color: 'var(--black)'}}>Loading...</div>
+        content = <div style={{ height: '50vh', width: '100%', position: 'relative'}}><Spinner /></div>
     } else if (isSuccess) {
         content =
             <>

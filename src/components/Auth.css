@@ -5,7 +5,6 @@
     color: var(--black);
     padding-top: var(--page-padding);
     padding-bottom: var(--page-padding);
-    min-height: 77.3vh;
 }
 
 .auth__title {

@@ -2,6 +2,8 @@ import './Search.css'
 import {useEffect, useState} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
 import {useGetFilmCreditsMutation, useSearchMutation} from "../slices/apiSlice";
+import FilmPoster from "./FilmPoster";
+import Spinner from "./Spinner";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState('');
@@ -98,34 +100,25 @@ export default function Search() {
                 </div>
             </form>
 
-            {searchResults.length > 0 &&
-                <div className="search__results" style={isLoading ? {
-                    height: '300px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                } : null}>
-                    {isLoading
-                        ?
-                        "Loading..."
-                        :
-                        searchResults.map(film => {
-                            return (
-                                <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
-                                    {film.poster_path && <img src={`https://image.tmdb.org/t/p/original${film.poster_path}`} alt=""/>}
-                                    <div>
-                                        <h3>{film.title}</h3>
-                                        <div>{film.release_date?.split('-')[0]}</div>
-                                        <div>{film.director}</div>
-                                    </div>
-                                </NavLink>
-                            )
-                        })
-                    }
-                </div>
-            }
-
-
+            <div className="search__results">
+                {isLoading && searchValue
+                    ?
+                    <div className="search__result"><Spinner /></div>
+                    :
+                    searchResults.map(film => {
+                        return (
+                            <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
+                                {film.poster_path && <FilmPoster posterPath={film.poster_path} />}
+                                <div>
+                                    <h3>{film.title}</h3>
+                                    <div>{film.release_date?.split('-')[0]}</div>
+                                    <div>{film.director}</div>
+                                </div>
+                            </NavLink>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
