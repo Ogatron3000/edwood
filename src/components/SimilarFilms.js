@@ -2,6 +2,8 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import SliderButton from "./SliderButton";
 import FilmCard from "./FilmCard";
 import './SimilarFilms.css';
+import 'swiper/css';
+import "swiper/css/pagination";
 
 export default function SimilarFilms({ films }) {
     return (
