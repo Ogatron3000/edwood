@@ -1,9 +1,10 @@
 import './SearchResults.css';
 import FilmList from "./FilmList";
 import {useSearchParams} from "react-router-dom";
-import React, {createRef, useEffect, useState} from "react";
+import React, {createRef} from "react";
 import ReactPaginate from "react-paginate";
-import {useSearchMutation} from "../slices/apiSlice";
+import {useSearchQuery} from "../slices/apiSlice";
+import Spinner from "./Spinner";
 
 export default function SearchResults() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -14,10 +15,8 @@ export default function SearchResults() {
         data: filmsData,
         isLoading,
         isFetching,
-        isSuccess,
-        isError,
-        error
-    } = useSearchMutation({query, page})
+        isSuccess
+    } = useSearchQuery({query, page})
 
     const parentRef = createRef();
     function handlePageChange(data) {
@@ -25,28 +24,37 @@ export default function SearchResults() {
         parentRef.current.scrollIntoView();
     }
 
+    let content
+
+    if (isLoading) {
+        content = <Spinner />
+    } else if (isSuccess) {
+        content =
+            <>
+                <div style={{opacity: isFetching ? 0.5 : 1}}>
+                    <FilmList films={filmsData.results}/>
+                </div>
+                <ReactPaginate
+                    className={"film-list-pagination"}
+                    breakLabel="..."
+                    nextLabel=">"
+                    onPageChange={handlePageChange}
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={2}
+                    pageCount={Math.min(filmsData.total_pages, 500)}
+                    previousLabel="<"
+                    disableInitialCallback={true}
+                    forcePage={page - 1}
+                    activeClassName={"active-page"}
+                    renderOnZeroPageCount={null}
+                />
+            </>
+    }
+
     return (
         <div className="search-results container" ref={parentRef}>
             <h1 className="search-results__title">Results for "{query}"</h1>
-            {filmsData &&
-                <>
-                    <FilmList films={filmsData.results}/>
-                    <ReactPaginate
-                        className={"film-list-pagination"}
-                        breakLabel="..."
-                        nextLabel=">"
-                        onPageChange={handlePageChange}
-                        marginPagesDisplayed={1}
-                        pageRangeDisplayed={2}
-                        pageCount={Math.min(filmsData.total_pages, 500)}
-                        previousLabel="<"
-                        disableInitialCallback={true}
-                        forcePage={page - 1}
-                        activeClassName={"active-page"}
-                        renderOnZeroPageCount={null}
-                    />
-                </>
-            }
+            {content}
         </div>
     )
 }

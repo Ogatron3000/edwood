@@ -25,13 +25,13 @@ export const apiSlice = createApi({
                 params: {api_key, append_to_response: 'credits,videos,similar'}
             })
         }),
-        search: builder.mutation({
+        search: builder.query({
             query: ({query, page}) => ({
                 url: '/search/movie',
                 params: {api_key, query, page}
             })
         }),
-        getFilmCredits: builder.mutation({
+        getFilmCredits: builder.query({
             query: (filmId) => ({
                 url: `/movie/${filmId}/credits`,
                 params: {api_key}
@@ -44,6 +44,6 @@ export const {
     useGetFilmsQuery,
     useGetGenresQuery,
     useGetFilmDetailsQuery,
-    useSearchMutation,
-    useGetFilmCreditsMutation
+    useSearchQuery,
+    useGetFilmCreditsQuery
 } = apiSlice

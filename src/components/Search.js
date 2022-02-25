@@ -1,34 +1,18 @@
 import './Search.css'
-import {useEffect, useState} from "react";
-import {NavLink, useNavigate} from "react-router-dom";
-import {useGetFilmCreditsMutation, useSearchMutation} from "../slices/apiSlice";
-import FilmPoster from "./FilmPoster";
-import Spinner from "./Spinner";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useSearchQuery} from "../slices/apiSlice";
+import SearchResult from "./SearchResult";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [clearButtonVisible, setClearButtonVisible] = useState(false);
-    const [searchResults, setSearchResults] = useState([]);
 
-    const [search] = useSearchMutation()
-    const [getFilmCredits, {isLoading}] = useGetFilmCreditsMutation()
-
-    useEffect(() => {
-        setSearchResults([])
-        if (searchValue.trim()) {
-            search({query: searchValue, page: 1})
-                .then(({ data }) => {
-                    let films = data.results.slice(0, 5)
-                    let creditsPromises = films.map(film => getFilmCredits(film.id))
-                    Promise.all(creditsPromises).then(response => {
-                        response.forEach((res, i) => {
-                            films[i] = {...films[i], director: res.data.crew.find(crew => crew.job === 'Director')?.name}
-                        });
-                        setSearchResults(films);
-                    })
-            })
-        }
-    }, [searchValue]);
+    const {data: searchResults, isFetching, isSuccess} =
+        useSearchQuery({
+            query: searchValue,
+            page: 1
+        }, {skip: !searchValue.trim()})
 
     function clearInput() {
         setSearchValue('');
@@ -100,23 +84,13 @@ export default function Search() {
                 </div>
             </form>
 
-            <div className="search__results">
-                {isLoading && searchValue
-                    ?
-                    <div className="search__result"><Spinner /></div>
-                    :
-                    searchResults.map(film => {
-                        return (
-                            <NavLink to={`film/${film.id}`} className="search__result" key={film.id} onClick={clearInput}>
-                                {film.poster_path && <FilmPoster posterPath={film.poster_path} />}
-                                <div>
-                                    <h3>{film.title}</h3>
-                                    <div>{film.release_date?.split('-')[0]}</div>
-                                    <div>{film.director}</div>
-                                </div>
-                            </NavLink>
-                        )
-                    })
+            <div className="search__results" style={(searchValue && searchResults?.results.length > 0) ? {
+                minWidth: '100%',
+                height: `${Math.min(5, searchResults.results.length) * 100}px`
+            } : null}>
+                {(searchValue && !isFetching && isSuccess) &&
+                    searchResults.results.slice(0, 5).map(film =>
+                        <SearchResult key={film.id} film={film} clearInput={clearInput} />)
                 }
             </div>
         </div>

@@ -80,6 +80,7 @@
     height: 100px;
     padding: 10px 15px;
     width: 100%;
+    position: relative;
 }
 
 .search__result:hover {
