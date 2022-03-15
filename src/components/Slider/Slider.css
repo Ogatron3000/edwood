@@ -88,22 +88,25 @@
     }
 }
 
-.swiper-pagination {
+.swiperPagination {
     display: flex;
     justify-content: center;
 }
 
-.swiper-pagination-bullet {
+.paginationBullet {
     display: block;
     width: 25px;
-    height: 4px;
+    height: 5px;
     text-align: center;
     background: white;
     border-radius: 0;
     opacity: 0.5;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-.swiper-pagination-bullet-active {
+.paginationActiveBullet {
     background: var(--brand-color);
     opacity: 1;
+    cursor: auto;
 }

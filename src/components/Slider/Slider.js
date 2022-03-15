@@ -53,7 +53,12 @@ export default React.memo(function Slider() {
                 slidesPerView={1}
                 loop={true}
                 autoHeight={true}
-                pagination={{clickable: true}}
+                pagination={{
+                    clickable: true,
+                    clickableClass: 'swiperPagination',
+                    bulletClass: 'paginationBullet',
+                    bulletActiveClass: 'paginationActiveBullet'
+                }}
                 modules={[Pagination]}
                 className="slider"
             >
