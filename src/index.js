@@ -11,7 +11,7 @@ import {fetchWatchlist} from "./slices/watchlistSlice";
 const Auth = lazy(() => import('./pages/Auth/Auth'));
 const FilmDetails = lazy(() => import('./pages/FilmDetails/FilmDetails'));
 const ValidateHome = lazy(() => import('./routes/ValidateHome'));
-const SearchResults = lazy(() => import('./components/SearchResults/SearchResults'));
+const SearchResults = lazy(() => import('./pages/SearchResults/SearchResults'));
 const RequiredAuth = lazy(() => import('./routes/RequiredAuth'));
 const Watchlist = lazy(() => import('./pages/Watchlist/Watchlist'));
 const PublicOnly = lazy(() => import('./routes/PublicOnly'));

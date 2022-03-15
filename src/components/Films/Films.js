@@ -23,7 +23,7 @@ export default function Films() {
 
     if (isLoading) {
         content = <div style={{ height: '50vh', width: '100%', position: 'relative'}}><Spinner /></div>
-    } else if (isSuccess) {
+    } else if ((!isLoading && isFetching) || isSuccess) {
         content =
             <>
                 <div style={{opacity: isFetching ? 0.5 : 1}}>
