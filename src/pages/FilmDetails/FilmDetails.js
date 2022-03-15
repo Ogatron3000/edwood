@@ -1,15 +1,15 @@
 import './FilmDetails.css'
 import {useParams} from "react-router-dom";
 import React, {useEffect} from "react";
-import TrailerButton from "./TrailerButton";
-import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
-import SimilarFilms from "./SimilarFilms";
-import FilmDetailsTabs from "./FilmDetailsTabs";
-import WatchlistButton from "./WatchlistButton";
-import {useGetFilmDetailsQuery} from "../slices/apiSlice";
-import Spinner from "./Spinner";
-import FilmBackdrop from "./FilmBackdrop";
-import FilmPoster from "./FilmPoster";
+import TrailerButton from "../../components/TrailerButton";
+import convertToFiveStarRating from "../../helpers/convertToFiveStarRating";
+import SimilarFilms from "../../components/SimilarFilms/SimilarFilms";
+import FilmDetailsTabs from "../../components/FilmDetailsTabs";
+import WatchlistButton from "../../components/WatchlistButton/WatchlistButton";
+import {useGetFilmDetailsQuery} from "../../slices/apiSlice";
+import Spinner from "../../components/Spinner/Spinner";
+import FilmBackdrop from "../../components/FilmBackdrop";
+import FilmPoster from "../../components/FilmPoster";
 
 export default function FilmDetails() {
     const {filmId} = useParams();

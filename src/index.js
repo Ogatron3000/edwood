@@ -8,13 +8,13 @@ import {Provider} from "react-redux";
 import store from "./store";
 import {fetchWatchlist} from "./slices/watchlistSlice";
 
-const Auth = lazy(() => import('./components/Auth'));
-const FilmDetails = lazy(() => import('./components/FilmDetails'));
-const ValidateHome = lazy(() => import('./components/ValidateHome'));
-const SearchResults = lazy(() => import('./components/SearchResults'));
-const RequiredAuth = lazy(() => import('./components/RequiredAuth'));
-const Watchlist = lazy(() => import('./components/Watchlist'));
-const PublicOnly = lazy(() => import('./components/PublicOnly'));
+const Auth = lazy(() => import('./pages/Auth/Auth'));
+const FilmDetails = lazy(() => import('./pages/FilmDetails/FilmDetails'));
+const ValidateHome = lazy(() => import('./routes/ValidateHome'));
+const SearchResults = lazy(() => import('./components/SearchResults/SearchResults'));
+const RequiredAuth = lazy(() => import('./routes/RequiredAuth'));
+const Watchlist = lazy(() => import('./pages/Watchlist/Watchlist'));
+const PublicOnly = lazy(() => import('./routes/PublicOnly'));
 
 if (store.getState().auth.isLoggedIn) {
     store.dispatch(fetchWatchlist())

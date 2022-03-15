@@ -1,10 +1,10 @@
 import './Auth.css';
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import pathToDisplayName from "../helpers/pathToDisplayName";
+import pathToDisplayName from "../../helpers/pathToDisplayName";
 import {useDispatch, useSelector} from "react-redux";
-import {auth} from "../slices/authSlice";
+import {auth} from "../../slices/authSlice";
 import {useForm} from "react-hook-form";
-import {fetchWatchlist} from "../slices/watchlistSlice";
+import {fetchWatchlist} from "../../slices/watchlistSlice";
 
 export default function Auth() {
     const { pathname } = useLocation();

@@ -1,6 +1,6 @@
 import './WatchlistButton.css'
 import {useDispatch, useSelector} from "react-redux";
-import {addToWatchlist, removeFromWatchlist, selectFilmById} from "../slices/watchlistSlice";
+import {addToWatchlist, removeFromWatchlist, selectFilmById} from "../../slices/watchlistSlice";
 
 export default function WatchlistButton({ film }) {
     const dispatch = useDispatch();

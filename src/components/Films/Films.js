@@ -1,11 +1,11 @@
 import './Films.css';
 import React, {createRef} from "react";
 import {useParams, useNavigate} from "react-router-dom";
-import FilmList from "./FilmList";
+import FilmList from "../FilmList/FilmList";
 import ReactPaginate from "react-paginate";
-import FilmsControls from "./FilmsControls";
-import {useGetFilmsQuery} from "../slices/apiSlice";
-import Spinner from "./Spinner";
+import FilmsControls from "../FilmsControls";
+import {useGetFilmsQuery} from "../../slices/apiSlice";
+import Spinner from "../Spinner/Spinner";
 
 export default function Films() {
     let {filter = 'popular', page = 1} = useParams();

@@ -1,8 +1,8 @@
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import {Outlet} from "react-router-dom";
 import {Suspense} from 'react'
-import Spinner from "./components/Spinner";
+import Spinner from "./components/Spinner/Spinner";
 
 function App() {
     return (

@@ -1,5 +1,5 @@
 import './Drawer.css';
-import Logo from "./Logo";
+import Logo from "../Logo/Logo";
 import {Link} from "react-router-dom";
 
 export default function Drawer({ toggleDrawer, drawerVisible, isLoggedIn, handleSignOut }) {

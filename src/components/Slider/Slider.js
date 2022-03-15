@@ -4,11 +4,11 @@ import "swiper/css/pagination";
 import './Slider.css';
 import {Pagination} from "swiper";
 import {NavLink} from "react-router-dom";
-import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
+import convertToFiveStarRating from "../../helpers/convertToFiveStarRating";
 import React from 'react'
-import {useGetFilmsQuery, useGetGenresQuery} from "../slices/apiSlice";
-import Spinner from "./Spinner";
-import FilmBackdrop from "./FilmBackdrop";
+import {useGetFilmsQuery, useGetGenresQuery} from "../../slices/apiSlice";
+import Spinner from "../Spinner/Spinner";
+import FilmBackdrop from "../FilmBackdrop";
 
 export default React.memo(function Slider() {
     const {

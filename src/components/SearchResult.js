@@ -1,7 +1,7 @@
 import FilmPoster from "./FilmPoster";
 import {NavLink} from "react-router-dom";
 import {useGetFilmCreditsQuery} from "../slices/apiSlice";
-import Spinner from "./Spinner";
+import Spinner from "./Spinner/Spinner";
 
 export default function SearchResult({ film, clearInput }) {
     const {data, isSuccess} = useGetFilmCreditsQuery(film.id)

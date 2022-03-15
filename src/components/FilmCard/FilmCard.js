@@ -1,9 +1,9 @@
 import './FilmCard.css';
 import {Link} from "react-router-dom";
-import convertToFiveStarRating from "../helpers/convertToFiveStarRating";
-import WatchlistButton from "./WatchlistButton";
+import convertToFiveStarRating from "../../helpers/convertToFiveStarRating";
+import WatchlistButton from "../WatchlistButton/WatchlistButton";
 import React from 'react'
-import FilmPoster from "./FilmPoster";
+import FilmPoster from "../FilmPoster";
 
 export default React.memo(function FilmCard({ film }) {
 

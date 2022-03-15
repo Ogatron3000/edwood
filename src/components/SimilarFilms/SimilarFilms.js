@@ -1,6 +1,6 @@
 import {Swiper, SwiperSlide} from "swiper/react";
-import SliderButton from "./SliderButton";
-import FilmCard from "./FilmCard";
+import SliderButton from "../SliderButton/SliderButton";
+import FilmCard from "../FilmCard/FilmCard";
 import './SimilarFilms.css';
 import 'swiper/css';
 import "swiper/css/pagination";

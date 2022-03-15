@@ -1,5 +1,5 @@
 import './FilmList.css';
-import FilmCard from "./FilmCard";
+import FilmCard from "../FilmCard/FilmCard";
 
 export default function FilmList({ films }) {
 

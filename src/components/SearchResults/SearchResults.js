@@ -1,10 +1,10 @@
 import './SearchResults.css';
-import FilmList from "./FilmList";
+import FilmList from "../FilmList/FilmList";
 import {useSearchParams} from "react-router-dom";
 import React, {createRef} from "react";
 import ReactPaginate from "react-paginate";
-import {useSearchQuery} from "../slices/apiSlice";
-import Spinner from "./Spinner";
+import {useSearchQuery} from "../../slices/apiSlice";
+import Spinner from "../Spinner/Spinner";
 
 export default function SearchResults() {
     const [searchParams, setSearchParams] = useSearchParams();

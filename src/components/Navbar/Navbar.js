@@ -1,11 +1,11 @@
 import './Navbar.css';
-import Search from "./Search";
-import Drawer from "./Drawer";
+import Search from "../Search/Search";
+import Drawer from "../Drawer/Drawer";
 import {useState} from "react";
-import Logo from "./Logo";
+import Logo from "../Logo/Logo";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {signOut} from "../slices/authSlice";
+import {signOut} from "../../slices/authSlice";
 
 export default function Navbar() {
     const [drawerOpen, setDrawerOpen] = useState({

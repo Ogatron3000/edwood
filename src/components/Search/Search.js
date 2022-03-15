@@ -1,8 +1,8 @@
 import './Search.css'
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {useSearchQuery} from "../slices/apiSlice";
-import SearchResult from "./SearchResult";
+import {useSearchQuery} from "../../slices/apiSlice";
+import SearchResult from "../SearchResult";
 
 export default function Search() {
     const [searchValue, setSearchValue] = useState('');
