@@ -37,8 +37,10 @@ export default function Search() {
     const navigate = useNavigate();
     function handleSubmit(e) {
         e.preventDefault();
-        navigate(`/search?query=${searchValue}&page=${1}`);
-        clearInput();
+        if (searchValue) {
+            navigate(`/search?query=${searchValue}&page=${1}`);
+            clearInput();
+        }
     }
 
     return (
